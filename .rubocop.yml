@@ -1,0 +1,23 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.4.1
+  Exclude:
+  - 'db/**/*'
+  - 'config/**/*'
+  - 'bin/**/*'
+  - 'vendor/**/*'
+  - 'lib/**/*'
+
+AsciiComments:
+  Enabled: false
+
+Airbnb/OptArgParameters:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 150
