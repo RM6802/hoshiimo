@@ -12,8 +12,7 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  // color: white;
-  // background-color: gray
+  margin-top: 50px;
 }
 
 .devise-content{
@@ -23,13 +22,14 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  color: black;
+  margin-top: 50px;
+  // color: white;
+  // background-color: gray
 }
 
 .alerts{
   position: relative;
-  top: 55px;
-  position: fixed;
+  top: 57px;
   width: 100vw;
   border-radius: 0px;
 }
@@ -38,12 +38,16 @@ body{
   background-color: green;
   color: white;
   text-align: center;
+  position: fixed;
+  z-index: 1;
 }
 
 .alert{
   background-color: red;
   color: white;
   text-align: center;
+  position: fixed;
+  z-index: 1;
 }
 
 .content h1{
@@ -80,4 +84,17 @@ body{
   .btn{
     margin-top: 20px;
   }
+}
+
+.profile-wrap{
+  margin-top: 100px;
+}
+
+.users{
+  margin-top: 150px;
+}
+
+.debug_dump {
+  position: absolute;
+  top: 1000px;
 }
