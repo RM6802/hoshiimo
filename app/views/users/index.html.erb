@@ -2,6 +2,7 @@
 
 <main role="main" class="container">
   <div class="users">
+    <%= paginate @users %>
     <% @users.each do |user| %>
       <div class="list-group">
         <li class="list-group-item">
@@ -17,4 +18,5 @@
       </div>
     <% end %>
   </div>
+  <%= paginate @users %>
 </main>
