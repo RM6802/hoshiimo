@@ -8,12 +8,14 @@
         <li class="list-group-item">
           <h3>
             <%= gravatar_for user %>
-            <%= user.name %>
+            <%= link_to user.name, user_path(user) %>
           </h3>
-          <p class="lead">
-            <%= truncate "This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser’s viewport." %>
-            <%= link_to "もっと読む", user_path(user) %>
-          </p>
+          <% if user.bio %>
+            <p class="lead">
+              <%= truncate user.bio %>
+              <%= link_to "もっと読む", user_path(user) %>
+            </p>
+          <% end %>
         </li>
       </div>
     <% end %>
