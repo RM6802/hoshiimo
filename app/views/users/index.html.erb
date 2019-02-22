@@ -1,7 +1,7 @@
 <% provide(:title, "ユーザー一覧") %>
 
 <main role="main" class="container">
-  <div class="users">
+  <div class="users-content">
     <%= paginate @users %>
     <% @users.each do |user| %>
       <div class="list-group">
@@ -13,12 +13,14 @@
           <% if user.bio %>
             <p class="lead">
               <%= truncate user.bio %>
-              <%= link_to "もっと読む", user_path(user) %>
+              <% if user.bio.size > 30 %>
+                <%= link_to "もっと読む", user_path(user) %>
+              <% end %>
             </p>
           <% end %>
         </li>
       </div>
     <% end %>
+    <%= paginate @users %>
   </div>
-  <%= paginate @users %>
 </main>

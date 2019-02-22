@@ -12,7 +12,7 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .devise-content{
@@ -29,7 +29,7 @@ body{
 
 .alerts{
   position: relative;
-  top: 57px;
+  top: 80px;
   width: 100vw;
   border-radius: 0px;
 }
@@ -90,8 +90,12 @@ body{
   margin-top: 100px;
 }
 
-.users{
+.users-content{
   margin-top: 150px;
+}
+
+.posts-content{
+  margin-top: 250px;
 }
 
 .debug_dump {
@@ -101,4 +105,32 @@ body{
 
 .lead{
   word-break: break-all;
+}
+
+.posts {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid;
+  }
+  .user {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+  .post {
+    display: block;
+    margin-left: 60px;
+  }
+  .timestamp {
+    color: gray;
+    display: block;
+    margin-left: 60px;
+  }
+  .gravatar {
+    float: left;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
 }

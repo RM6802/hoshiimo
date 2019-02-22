@@ -7,5 +7,10 @@ Rails.application.routes.draw do
   root to: "home#index"
   get  '/about',   to: 'home#about'
 
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show] do
+    #get "search", on: :collection
+    resources :posts, only: [:index]
+  end
+
+  resources :posts
 end
