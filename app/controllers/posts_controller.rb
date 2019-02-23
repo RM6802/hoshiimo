@@ -11,6 +11,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @posts = Post.readable_for(current_user).find(params[:id])
   end
 
   def new

@@ -2,39 +2,51 @@
 
 <main role="main" class="container">
   <div class="posts-content">
-    <% if current_user %>
-    <ul class="toolbar">
-      <%= link_to "リストの作成", "#" %>
-    </ul>
-    <% end %>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active">タブ1</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">タブ2</a>
+      </li>
 
-    <%= paginate @posts %>
-    <div class="posts">
-      <% if @posts.present? %>
-        <% @posts.each do |post| %>
-          <div class="list-group">
-            <li class="list-group-item">
-              <%= link_to gravatar_for(post.user), post.user %>
-              <% body = capture do %>
-                <span class="user"><%= post.user.name %></span>
-                <span class="post"><%= post.name %></span>
-              <% end %>
-              <%= link_to_if current_user == post.user, body, "#" %>
-
-              <span class="timestamp">
-                投稿時間：<%= time_ago_in_words(post.created_at) %>前
-                <% if current_user == post.user %>
-                  <%= link_to "削除", "#", method: :delete,
-                                                   data: { confirm: "You sure?" } %>
+      <%= paginate @posts %>
+      <div class="posts">
+        <% if @posts.present? %>
+          <% @posts.each do |post| %>
+            <div class="list-group">
+              <li class="list-group-item">
+                <%= link_to gravatar_for(post.user), post.user %>
+                <% if params[:user_id].present? %>
+                  <span class="user">
+                    <%= post.user.name %>
+                  </span>
+                <% elsif current_user == post.user %>
+                  <span class="user">
+                    <%= link_to "#{post.user.name} (投稿一覧へ)", user_posts_path(post.user) %>
+                  </span>
+                <% else %>
+                  <span class="user">
+                    <%= link_to "#{post.user.name} (公開投稿一覧へ)", user_posts_path(post.user) %>
+                  </span>
                 <% end %>
-              </span>
-            </li>
-          </div>
+                <span class="post"><%= link_to post.name, "#" %></span>
+
+                <span class="timestamp">
+                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
+                  <% if current_user == post.user %>
+                    <%= link_to "削除", "#", method: :delete,
+                                                     data: { confirm: "You sure?" } %>
+                  <% end %>
+                </span>
+              </li>
+            </div>
+          <% end %>
+        <% else %>
+          <h3>投稿がありません。</h3>
         <% end %>
-      <% else %>
-        <p>投稿がありません。</p>
-      <% end %>
-    </div>
-    <%= paginate @posts %>
+      </div>
+      <%= paginate @posts %>
+    </ul>
   </div>
 </main>
