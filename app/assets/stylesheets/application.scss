@@ -27,6 +27,26 @@ body{
   // background-color: gray
 }
 
+.nav-tabs{
+  display: block;
+  margin-top: 100px;
+  border-radius: 0;
+  .nav-item {
+    width: 15vw;
+    display: list-item;
+    float: left;
+    text-align: center;
+    background-color: silver;
+    border-color: lightgray;
+    .nav-link.active{
+      background-color: white;
+    }
+  }
+  .pagination {
+    clear: both;
+  }
+}
+
 .alerts{
   position: relative;
   top: 80px;
@@ -112,7 +132,6 @@ body{
   padding: 0;
   li {
     padding: 10px 0;
-    border-top: 1px solid;
   }
   h3 {
     text-align: center;
