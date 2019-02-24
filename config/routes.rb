@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do
     #get "search", on: :collection
     resources :posts, only: [:index]
+    get 'purchased', to: 'posts#index'
   end
 
   resources :posts
+  get 'purchased', to: 'posts#index'
 end

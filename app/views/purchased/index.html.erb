@@ -1,11 +1,11 @@
-<% @user? provide(:title, "#{@user.name}さんの投稿一覧") : provide(:title, "投稿一覧") %>
+<% @user? provide(:title, "#{@user.name}さんの購入済み一覧") : provide(:title, "購入済み一覧") %>
 
 <main role="main" class="container">
   <div class="posts-content">
     <div class="posts">
-      <%= paginate @posts.unpurchased %>
+      <%= paginate @posts.purchased %>
       <% if @posts.present? %>
-        <% @posts.unpurchased.each do |post| %>
+        <% @posts.purchased.each do |post| %>
           <div class="list-group">
             <li class="list-group-item">
               <%= link_to gravatar_for(post.user), post.user %>
@@ -36,7 +36,7 @@
       <% else %>
         <h3>投稿がありません。</h3>
       <% end %>
-      <%= paginate @posts.unpurchased %>
+      <%= paginate @posts.purchased %>
     </div>
   </div>
 </main>

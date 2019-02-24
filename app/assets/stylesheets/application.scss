@@ -27,24 +27,8 @@ body{
   // background-color: gray
 }
 
-.nav-tabs{
-  display: block;
-  margin-top: 100px;
-  border-radius: 0;
-  .nav-item {
-    width: 15vw;
-    display: list-item;
-    float: left;
-    text-align: center;
-    background-color: silver;
-    border-color: lightgray;
-    .nav-link.active{
-      background-color: white;
-    }
-  }
-  .pagination {
-    clear: both;
-  }
+.posts-content {
+  margin-top: 50px;
 }
 
 .alerts{

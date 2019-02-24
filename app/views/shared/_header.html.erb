@@ -22,6 +22,9 @@
             <%= link_to(edit_user_registration_path, class: "dropdown-item") do %>プロフィール変更・退会<% end %>
             <%= link_to(user_path(current_user), class: "dropdown-item") do %>マイページ<% end %>
             <%= link_to(user_posts_path(current_user), class: "dropdown-item") do %>マイ投稿<% end %>
+            <%= link_to(user_purchased_path(current_user), class: "dropdown-item") do %>マイ購入<% end %>
+            <%= link_to(posts_path, class: "dropdown-item") do %>未購入一覧<% end %>
+            <%= link_to(purchased_path, class: "dropdown-item") do %>購入一覧<% end %>
             <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>ログアウト<% end %>
           </div>
         </li>
