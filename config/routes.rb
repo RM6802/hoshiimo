@@ -5,14 +5,14 @@ Rails.application.routes.draw do
     controllers: { registrations: 'registrations' }
 
   root to: "home#index"
-  get  '/about',   to: 'home#about'
+  get  'about',   to: 'home#about'
 
   resources :users, only: [:index, :show] do
     #get "search", on: :collection
     resources :posts, only: [:index]
-    get 'purchased', to: 'posts#index'
+    resources :purchases, only: [:index]
   end
 
   resources :posts
-  get 'purchased', to: 'posts#index'
+  resources :purchases, only: [:index]
 end

@@ -1,33 +1,14 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
-  # def index
-  #   if params[:user_id]
-  #     @user = User.find(params[:user_id])
-  #     @posts = @user.posts.readable_for(current_user).order(posted_at: :desc).page(params[:page]).per(10)
-  #   else
-  #     @posts = Post.published.order(posted_at: :desc).page(params[:page]).per(10)
-  #   end
-  # end
-
   def index
-    if !request.fullpath.include?("purchased")
-      if params[:user_id]
-        @user = User.find(params[:user_id])
-        @posts = @user.posts.readable_for(current_user).order(posted_at: :desc).page(params[:page]).per(10)
-      else
-        @posts = Post.published.order(posted_at: :desc).page(params[:page]).per(10)
-      end
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @posts = @user.posts.readable_for(current_user).unpurchased.order(posted_at: :desc).page(params[:page]).per(10)
     else
-      if params[:user_id]
-        @user = User.find(params[:user_id])
-        @posts = @user.posts.readable_for(current_user).order(posted_at: :desc).page(params[:page]).per(10)
-        render 'purchased/index'
-      else
-        @posts = Post.published.order(posted_at: :desc).page(params[:page]).per(10)
-        render 'purchased/index'
-      end
+      @posts = Post.published.unpurchased.order(posted_at: :desc).page(params[:page]).per(10)
     end
+
   end
 
 

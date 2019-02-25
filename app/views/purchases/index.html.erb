@@ -3,29 +3,29 @@
 <main role="main" class="container">
   <div class="posts-content">
     <div class="posts">
-      <%= paginate @posts.purchased %>
-      <% if @posts.present? %>
-        <% @posts.purchased.each do |post| %>
+      <%= paginate @purchases %>
+      <% if @purchases.present? %>
+        <% @purchases.each do |purchase| %>
           <div class="list-group">
             <li class="list-group-item">
-              <%= link_to gravatar_for(post.user), post.user %>
+              <%= link_to gravatar_for(purchase.user), purchase.user %>
               <% if params[:user_id].present? %>
                 <span class="user">
-                  <%= post.user.name %>
+                  <%= purchase.user.name %>
                 </span>
-              <% elsif current_user == post.user %>
+              <% elsif current_user == purchase.user %>
                 <span class="user">
-                  <%= link_to "#{post.user.name} (投稿一覧へ)", user_posts_path(post.user) %>
+                  <%= link_to "#{purchase.user.name} (購入一覧へ)", user_purchases_path(purchase.user) %>
                 </span>
               <% else %>
                 <span class="user">
-                  <%= link_to "#{post.user.name} (公開投稿一覧へ)", user_posts_path(post.user) %>
+                  <%= link_to "#{purchase.user.name} (公開購入物一覧へ)", user_purchases_path(purchase.user) %>
                 </span>
               <% end %>
-              <span class="post"><%= link_to post.name, "#" %></span>
+              <span class="post"><%= link_to purchase.name, "#" %></span>
               <span class="timestamp">
-                投稿時間：<%= time_ago_in_words(post.created_at) %>前
-                <% if current_user == post.user %>
+                投稿時間：<%= time_ago_in_words(purchase.created_at) %>前
+                <% if current_user == purchase.user %>
                   <%= link_to "削除", "#", method: :delete,
                                                    data: { confirm: "You sure?" } %>
                 <% end %>
@@ -36,7 +36,7 @@
       <% else %>
         <h3>投稿がありません。</h3>
       <% end %>
-      <%= paginate @posts.purchased %>
+      <%= paginate @purchases %>
     </div>
   </div>
 </main>
