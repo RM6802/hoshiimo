@@ -13,7 +13,7 @@ class PostsController < ApplicationController
 
 
   def show
-    @posts = Post.readable_for(current_user).find(params[:id])
+    @post = Post.readable_for(current_user).find(params[:id])
   end
 
   def new

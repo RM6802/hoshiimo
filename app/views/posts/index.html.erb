@@ -22,7 +22,7 @@
                   <%= link_to "#{post.user.name} (公開投稿一覧へ)", user_posts_path(post.user) %>
                 </span>
               <% end %>
-              <span class="post"><%= link_to post.name, "#" %></span>
+              <span class="post"><%= link_to post.name, post_path(post) %></span>
               <span class="timestamp">
                 投稿時間：<%= time_ago_in_words(post.created_at) %>前
                 <% if current_user == post.user %>

@@ -4,3 +4,6 @@ ja:
       user:
         name: ユーザー名
         bio: 自己紹介
+      post:
+        name: 商品名
+        description: 説明

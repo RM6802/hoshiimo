@@ -22,7 +22,7 @@
                   <%= link_to "#{purchase.user.name} (公開購入物一覧へ)", user_purchases_path(purchase.user) %>
                 </span>
               <% end %>
-              <span class="post"><%= link_to purchase.name, "#" %></span>
+              <span class="post"><%= link_to purchase.name, post_path(purchase) %></span>
               <span class="timestamp">
                 投稿時間：<%= time_ago_in_words(purchase.created_at) %>前
                 <% if current_user == purchase.user %>

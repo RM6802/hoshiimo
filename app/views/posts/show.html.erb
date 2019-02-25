@@ -1,0 +1,132 @@
+<% provide(:title, @post.name) %>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+
+    <div class="user-wrap">
+      <h3>
+        <%= gravatar_for @post.user %>
+        <%= link_to @post.user.name, user_path(@post.user) %>
+      </h3>
+      <% if @post.user == current_user %>
+        <%= link_to "編集", edit_post_path(@post), class: "btn btn-lg btn-primary btn-block" %>
+      <% end %>
+    </div>
+
+    <div class="product-wrap">
+      <div class="card">
+        <div class="card-header">
+          商品名
+        </div>
+        <div class="card-body">
+          <h4 class="card-title"><%= @post.name %></h4>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          商品説明
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= @post.description %></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          値段
+        </div>
+        <div class="card-body">
+          <% if @post.price %>
+            <p class="card-text"><%= @post.price %>円</p>
+          <% end %>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          購入状態
+        </div>
+        <div class="card-body">
+          <% if @post.purchased == false %>
+            <p class="card-text">未購入</p>
+          <% else %>
+            <p class="card-text">購入済</p>
+          <% end %>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          購入日
+        </div>
+        <div class="card-body">
+          <% if @post.purchased_at %>
+            <p class="card-text"><%= @post.purchased_at.strftime("%Y/%m/%d %H:%M") %></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          公開設定
+        </div>
+        <div class="card-body">
+          <% if @post.published == false %>
+            <p class="card-text">非公開</p>
+          <% else %>
+            <p class="card-text">公開</p>
+          <% end %>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          投稿日
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= @post.posted_at.strftime("%Y/%m/%d %H:%M") %></p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          写真
+        </div>
+        <div class="card-body">
+          <p class="card-text"></p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- <h3>商品名</h3>
+    <p class="lead">This is a modified jumbotron that occupies
+                    the entire horizontal space of its parent.</p> -->
+
+    <!-- <ul class="list-group">
+      <li class="list-group-item">Morbi leo risus</li>
+      <li class="list-group-item">Porta ac consectetur ac</li>
+      <li class="list-group-item active">Vestibulum at eros</li>
+      <li class="list-group-item">Morbi leo risus</li>
+      <li class="list-group-item active">Porta ac consectetur ac</li>
+      <li class="list-group-item">Vestibulum at eros</li>
+      <li class="list-group-item active">Morbi leo risus</li>
+      <li class="list-group-item">Porta ac consectetur ac</li>
+      <li class="list-group-item active">Vestibulum at eros</li>
+      <li class="list-group-item">Morbi leo risus</li>
+      <li class="list-group-item active">Porta ac consectetur ac</li>
+      <li class="list-group-item">Vestibulum at eros</li>
+    </ul
+
+    <dl class="dl-horizontal">
+      <dt class="col-sm-3">Description lists</dt>
+      <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+      <dt class="col-sm-3">Euismod</dt>
+      <dd class="col-sm-9">Vestibulum  felis euismod semper eget lacinia odio sem nec elit.</dd>
+      <dd class="col-sm-9 offset-sm-3">Donec id elit non mi porta gravida at eget metus.</dd>
+
+      <dt class="col-sm-3">Malesuada porta</dt>
+      <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+
+      <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+      <dd class="col-sm-9">Fusce dapibmodo, nibh, ut fermentum massa justo sit amet risus.</dd>
+    </dl> -->
+  </div>
+</div>
