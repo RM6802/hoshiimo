@@ -6,4 +6,11 @@ ja:
         bio: 自己紹介
       post:
         name: 商品名
-        description: 説明
+        description: 商品説明
+        price: 値段
+        unpurchased: 未購入
+        purchased: 購入済
+        purchased_at: 購入日
+        unpublished: 非公開
+        published: 公開
+        posted_at: 投稿日

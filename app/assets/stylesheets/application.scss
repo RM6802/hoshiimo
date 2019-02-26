@@ -83,15 +83,19 @@ body{
 }
 
 .delete-form{
-  border-top: 1px solid black;
   margin-top: 50px;
-  .btn{
-    margin-top: 20px;
-  }
+}
+
+.gravatar_edit{
+  margin-top: 50px;
 }
 
 .profile-wrap{
   margin-top: 100px;
+}
+
+.form-wrap{
+  padding-top: 300px;
 }
 
 .user-wrap{
@@ -147,4 +151,14 @@ body{
     margin-left: 10px;
     margin-top: 5px;
   }
+}
+
+.form-wrap{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 100px;
 }

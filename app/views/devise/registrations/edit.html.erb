@@ -45,8 +45,14 @@
         <% end %>
       </div>
 
+      <div class="gravatar_edit">
+        <%= gravatar_for @user %>
+        <a href="http://gravatar.com/emails">プロフィール画像の変更はこちらから(外部サイト)</a>
+      </div>
+
       <div class="delete-form">
-        <%= button_to "アカウントを削除", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary" %>
+        <%= button_to "アカウントを削除", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-primary btn-lg btn-block" %>
+      </div>
       </div>
     </div>
   </div>
