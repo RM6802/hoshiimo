@@ -3,15 +3,24 @@
 <main role="main" class="container">
   <div class="profile-wrap">
     <div class="jumbotron">
-      <h1>
+      <h2>
         <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
+        <% if current_user == @user %>
+          <span class="user">
+            <%= link_to "#{@user.name} (投稿一覧へ)", user_posts_path(@user) %>
+          </span>
+        <% else %>
+          <span class="user">
+            <%= link_to "#{@user.name} (公開投稿一覧へ)", user_posts_path(@user) %>
+          </span>
+        <% end %>
+      </h2>
       <p class="lead">
         <%= @user.bio %>
       </p>
       <% if @user == current_user %>
-        <%= link_to "編集", edit_user_registration_path, class: "btn btn-lg btn-primary" %>
+        <%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-lg btn-primary" %>
+        <%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-secondary" %>
       <% end %>
     </div>
   </div>
