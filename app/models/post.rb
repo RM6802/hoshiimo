@@ -1,8 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :user
-  validates :name, presence: true, length: { maximum: 200 }
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :description, length: { maximum: 200 }
+  validates :user_id, presence: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
-  validates :posted_at, presence: true
   validates :purchased, :published, inclusion: { in: [true, false] }
 
   #公開ポスト

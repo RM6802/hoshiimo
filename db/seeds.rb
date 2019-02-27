@@ -32,7 +32,6 @@ users = User.order(:created_at).take(6)
  end
  users.each do |user|
    user.posts.create!(name: content,
-                      posted_at: 10.days.ago,
                       purchased: purchased,
                       published: published)
  end

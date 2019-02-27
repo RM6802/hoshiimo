@@ -26,7 +26,7 @@
               <span class="timestamp">
                 投稿時間：<%= time_ago_in_words(purchase.created_at) %>前
                 <% if current_user == purchase.user %>
-                  <%= link_to "削除", "#", method: :delete,
+                  <%= link_to "削除", post_path(purchase), method: :delete,
                                                    data: { confirm: "You sure?" } %>
                 <% end %>
               </span>
