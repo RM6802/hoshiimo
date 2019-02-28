@@ -19,24 +19,25 @@
         <div class="card">
           <div class="card-body">
             <div class="form-check form-check-inline">
-              <%= f.radio_button :purchased, false, class: "form-check-input", type: "checkbox" %>
+              <%= f.radio_button :purchased, false, class: "form-check-input", type: "checkbox", id: "unpurchased" %>
               <%= f.label :unpurchased, for: "purchased_2", class: "form-check-label" %>
             </div>
             <div class="form-check form-check-inline">
-              <%= f.radio_button :purchased, true, class: "form-check-input", type: "checkbox" %>
+              <%= f.radio_button :purchased, true, class: "form-check-input", type: "checkbox", id: "purchased" %>
               <%= f.label :purchased, for: "purchased_1", class: "form-check-label" %>
             </div>
           </div>
         </div><br />
 
-
-        <%= f.label :purchased_at, for: "post_purchased_at_1i" %><br />
-        <div class="card">
-          <div class="card-body">
-            <%= f.date_select :purchased_at,
-                      start_year: 2000, end_year: Time.current.year,
-                      include_blank: true,
-                      use_month_numbers: true %>
+        <div id="purchased_at">
+          <%= f.label :purchased_at, for: "post_purchased_at_1i" %><br />
+          <div class="card">
+            <div class="card-body">
+              <%= f.date_select :purchased_at,
+                        start_year: 2000, end_year: Time.current.year,
+                        include_blank: true,
+                        use_month_numbers: true %>
+            </div>
           </div>
         </div><br />
 
@@ -68,3 +69,32 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var rb_purchased = $("#purchased");
+  var rb_unpurchased = $("#unpurchased");
+  var field = $("#purchased_at");
+
+
+  console.log(field);
+
+  var changePurchasedAt = function() {
+    if (rb_purchased.prop("checked"))
+      field.show()
+    else
+      field.hide()
+  }
+
+  var changeUnpurchasedAt = function() {
+    if (rb_unpurchased.prop("checked"))
+      field.hide()
+    else
+      field.show()
+  }
+
+  rb_purchased.bind("click", changePurchasedAt);
+  rb_unpurchased.bind("click", changeUnpurchasedAt);
+
+  changePurchasedAt();
+  changeUnpurchasedAt();
+</script>
