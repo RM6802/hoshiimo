@@ -164,19 +164,20 @@ body{
 }
 
 .new-post-link{
-  position: absolute;
-  top: 120px;
-  left: 550px
+  position: relative;
+  top: 210px;
+  left: 10px;
+
 }
 
 .user-purchases-link{
-  position: absolute;
+  position: relative;
   top: 220px;
-  left: 80px
+  left: 10px
 }
 
 .posts-header {
-  position: absolute;
-  top: 180px;
-  left: 80px
+  position: relative;
+  top: 200px;
+  left: 10px
 }

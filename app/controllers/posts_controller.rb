@@ -9,7 +9,6 @@ class PostsController < ApplicationController
     else
       @posts = Post.published.unpurchased.order(created_at: :desc).page(params[:page]).per(10)
     end
-
   end
 
 
