@@ -58,13 +58,6 @@ body{
   font-size: 60px;
 }
 
-.bg_image{
-  // background-color: gray
-  // background-image: url(https://www.pakutaso.com/shared/img/thumb/elly20160628585420_TP_V.jpg);
-  // background-position: center;
-  // background-size: cover;
-}
-
 .nav{
   padding-top: 15px;
   align-items: center;
@@ -117,6 +110,10 @@ body{
 .debug_dump {
   position: absolute;
   top: 2000px;
+}
+
+.error-wrap {
+  margin-top: 100px;
 }
 
 .lead{

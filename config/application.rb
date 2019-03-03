@@ -31,5 +31,9 @@ module Hoshiimo
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.exceptions_app = ->(env) do
+      ErrorsController.action(:show).call(env)
+    end
   end
 end
