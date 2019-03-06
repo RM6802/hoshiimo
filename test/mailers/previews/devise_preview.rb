@@ -4,6 +4,6 @@ class DevisePreview < ActionMailer::Preview
   end
 
   def confirmation_instructions
-    Devise::Mailer.confirmation_instructions(User.new, Devise.friendly_token)
+    Devise::Mailer.confirmation_instructions(User.new(name: "テスト", email: "devise@railstutorial.org"), Devise.friendly_token)
   end
 end
