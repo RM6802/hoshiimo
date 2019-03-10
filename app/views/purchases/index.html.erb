@@ -1,69 +1,64 @@
 <% @user? provide(:title, "#{@user.name}さんの購入済み一覧") : provide(:title, "購入済み一覧") %>
 
-<main role="main" class="container">
-  <div class="posts-header">
-    <% if params[:user_id].present? %>
-      <% if current_user == @user %>
-        <h3><%= "#{@user.name}さんの購入一覧" %></h3>
-      <% else %>
-        <h3><%= "#{@user.name}さんの購入一覧(公開用)" %></h3>
-      <% end %>
+<div class="container-fluid">
+  <% if params[:user_id].present? %>
+    <% if current_user == @user %>
+      <h3><%= "#{@user.name}さんの購入一覧" %></h3>
     <% else %>
-      <h3>購入一覧</h3>
+      <h3><%= "#{@user.name}さんの購入一覧(公開用)" %></h3>
     <% end %>
-  </div>
-  <div class="new-post-link">
-    <% if user_signed_in? %>
-      <%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %>
-    <% end %>
-  </div>
-  <div class="user-purchases-link">
-    <% if params[:user_id].present? %>
-      <% if current_user == @user %>
-        <%= link_to "#{@user.name}さんの欲しい物一覧へ", user_posts_path(@user) %>
-      <% else %>
-        <%= link_to "#{@user.name}さんの欲しい物一覧へ(公開用)", user_posts_path(@user) %>
-      <% end %>
+  <% else %>
+    <h3>購入一覧</h3>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %>
+  <% end %>
+
+  <% if params[:user_id].present? %>
+    <% if current_user == @user %>
+      <div><%= link_to "#{@user.name}さんの欲しい物一覧へ", user_posts_path(@user) %></div><br />
     <% else %>
-      <%= link_to "欲しい物一覧へ", posts_path %>
+      <div><%= link_to "#{@user.name}さんの欲しい物一覧へ(公開用)", user_posts_path(@user) %></div><br />
     <% end %>
-  </div>
-  <div class="posts-content">
-    <div class="posts">
-      <%= paginate @purchases %>
-      <% if @purchases.present? %>
-        <% @purchases.each do |purchase| %>
-          <div class="list-group">
-            <li class="list-group-item">
-              <%= link_to gravatar_for(purchase.user), purchase.user %>
-              <% if params[:user_id].present? %>
-                <span class="user">
-                  <%= purchase.user.name %>
-                </span>
-              <% elsif current_user == purchase.user %>
-                <span class="user">
-                  <%= link_to "#{purchase.user.name} (購入一覧へ)", user_purchases_path(purchase.user) %>
-                </span>
-              <% else %>
-                <span class="user">
-                  <%= link_to "#{purchase.user.name} (公開購入物一覧へ)", user_purchases_path(purchase.user) %>
-                </span>
-              <% end %>
-              <span class="post"><%= link_to purchase.name, post_path(purchase) %></span>
-              <span class="timestamp">
-                投稿時間：<%= time_ago_in_words(purchase.created_at) %>前
-                <% if current_user == purchase.user %>
-                  <%= link_to "削除", post_path(purchase), method: :delete,
-                                                   data: { confirm: "You sure?" } %>
-                <% end %>
+  <% else %>
+    <div><%= link_to "欲しい物一覧へ", posts_path %></div><br />
+  <% end %>
+
+  <div class="posts">
+    <%= paginate @purchases %>
+    <% if @purchases.present? %>
+      <% @purchases.each do |purchase| %>
+        <div class="list-group">
+          <li class="list-group-item">
+            <%= link_to gravatar_for(purchase.user), purchase.user %>
+            <% if params[:user_id].present? %>
+              <span class="user">
+                <%= purchase.user.name %>
               </span>
-            </li>
-          </div>
-        <% end %>
-      <% else %>
-        <h3>投稿がありません</h3>
+            <% elsif current_user == purchase.user %>
+              <span class="user">
+                <%= link_to "#{purchase.user.name} (購入一覧へ)", user_purchases_path(purchase.user) %>
+              </span>
+            <% else %>
+              <span class="user">
+                <%= link_to "#{purchase.user.name} (公開購入物一覧へ)", user_purchases_path(purchase.user) %>
+              </span>
+            <% end %>
+            <span class="post"><%= link_to purchase.name, post_path(purchase) %></span>
+            <span class="timestamp">
+              投稿時間：<%= time_ago_in_words(purchase.created_at) %>前
+              <% if current_user == purchase.user %>
+                <%= link_to "削除", post_path(purchase), method: :delete,
+                                                 data: { confirm: "You sure?" } %>
+              <% end %>
+            </span>
+          </li>
+        </div>
       <% end %>
-      <%= paginate @purchases %>
-    </div>
+    <% else %>
+      <h3>投稿がありません</h3>
+    <% end %>
+    <%= paginate @purchases %>
   </div>
-</main>
+</div>

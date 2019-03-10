@@ -1,26 +1,24 @@
 <% provide(:title, "ユーザー一覧") %>
 
-<main role="main" class="container">
-  <div class="users-content">
-    <%= paginate @users %>
-    <% @users.each do |user| %>
-      <div class="list-group">
-        <li class="list-group-item">
-          <h3>
-            <%= gravatar_for user %>
-            <%= link_to user.name, user_path(user) %>
-          </h3>
-          <% if user.bio %>
-            <p class="lead">
-              <%= truncate user.bio %>
-              <% if user.bio.size > 30 %>
-                <%= link_to "もっと読む", user_path(user) %>
-              <% end %>
-            </p>
-          <% end %>
-        </li>
-      </div>
-    <% end %>
-    <%= paginate @users %>
-  </div>
-</main>
+<div class="container-fluid">
+  <%= paginate @users %>
+  <% @users.each do |user| %>
+    <div class="list-group">
+      <li class="list-group-item">
+        <h3>
+          <%= gravatar_for user %>
+          <%= link_to user.name, user_path(user) %>
+        </h3>
+        <% if user.bio %>
+          <p class="lead">
+            <%= truncate user.bio %>
+            <% if user.bio.size > 30 %>
+              <%= link_to "もっと読む", user_path(user) %>
+            <% end %>
+          </p>
+        <% end %>
+      </li>
+    </div>
+  <% end %>
+  <%= paginate @users %>
+</div>

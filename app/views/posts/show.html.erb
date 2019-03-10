@@ -1,16 +1,15 @@
 <% provide(:title, @post.name) %>
 
 <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <div class="user-wrap">
-      <h3>
-        <%= gravatar_for @post.user %>
-        <%= link_to @post.user.name, user_path(@post.user) %>
-      </h3>
-      <% if @post.user == current_user %>
-        <%= link_to "編集", edit_post_path(@post), class: "btn btn-lg btn-primary btn-block" %>
-      <% end %>
-    </div>
+  <div class="container-fluid">
+    <h3>
+      <%= gravatar_for @post.user %>
+      <%= link_to @post.user.name, user_path(@post.user) %>
+    </h3>
+    <% if @post.user == current_user %>
+      <div><%= link_to "編集", edit_post_path(@post), class: "btn btn-lg btn-primary btn-block" %></div><br />
+    <% end %>
+
     <div class="product-wrap">
       <div class="card">
         <div class="card-header">

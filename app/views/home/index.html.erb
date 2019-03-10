@@ -1,57 +1,50 @@
 <% if user_signed_in? %>
-  <main role="main" class="container">
-    <div class="posts-header">
-      <h3><%= "#{current_user.name}さんの欲しい物一覧" %></h3>
-    </div>
-    <div class="new-post-link">
-      <%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %>
-    </div>
-    <div class="user-purchases-link">
-        <%= link_to "#{current_user.name}さんの購入一覧へ", user_purchases_path(current_user) %>
-    </div>
 
-    <div class="posts-content">
-      <div class="posts">
-        <%= paginate @posts %>
-        <% if @posts.present? %>
-          <% @posts.each do |post| %>
-            <div class="list-group">
-              <li class="list-group-item">
-                <%= link_to gravatar_for(post.user), post.user %>
-                <span class="user">
-                  <%= post.user.name %>
-                </span>
-                <span class="post"><%= link_to post.name, post_path(post) %></span>
-                <span class="timestamp">
-                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
-                  <%= link_to "削除", post_path(post), method: :delete,
-                                                   data: { confirm: "You sure?" } %>
-                </span>
-              </li>
-            </div>
-          <% end %>
-        <% else %>
-          <h3>投稿がありません</h3>
-        <% end %>
-        <%= paginate @posts %>
-      </div>
-    </div>
-  </main>
+<div class="container-fluid">
+  <h3><%= "#{current_user.name}さんの欲しい物一覧" %></h3>
+  <div><%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %></div>
+  <div><%= link_to "#{current_user.name}さんの購入一覧へ", user_purchases_path(current_user) %></div><br />
+  <div class="posts">
+    <%= paginate @posts %>
+    <% if @posts.present? %>
+      <% @posts.each do |post| %>
+        <div class="list-group">
+          <li class="list-group-item">
+            <%= link_to gravatar_for(post.user), post.user %>
+            <span class="user">
+              <%= post.user.name %>
+            </span>
+            <span class="post"><%= link_to post.name, post_path(post) %></span>
+            <span class="timestamp">
+              投稿時間：<%= time_ago_in_words(post.created_at) %>前
+              <%= link_to "削除", post_path(post), method: :delete,
+                                               data: { confirm: "You sure?" } %>
+            </span>
+          </li>
+        </div>
+      <% end %>
+    <% else %>
+      <h3>投稿がありません</h3>
+    <% end %>
+    <%= paginate @posts %>
+  </div>
+</div>
+
 <% else %>
-  <div class="main">
-    <div class="content bg_image">
+  <div class="container-fluid">
+    <div class="text-content">
       <h1>欲しいものを管理する</h1>
       <p class="lead">
         Use this document as a way to quickly start any new project.<br>
         All you get is this text nd a mostly barebones HTML document.
       </p>
-      <div class="nav navbar-nav navbar-right">
-        <div class="signup">
-          <%= link_to '新規登録', new_user_registration_path, class: "btn btn-lg btn-primary" %>
-        </div>
-        <div class="signin">
-          <%= link_to 'ログイン', new_user_session_path, class: "btn btn-lg btn-primary" %>
-        </div>
+    </div>
+    <div class="form-wrap">
+      <div class="signup">
+        <%= link_to '新規登録', new_user_registration_path, class: "btn btn-lg btn-primary" %>
+      </div><br />
+      <div class="signin">
+        <%= link_to 'ログイン', new_user_session_path, class: "btn btn-lg btn-primary" %>
       </div>
     </div>
   </div>
