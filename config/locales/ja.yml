@@ -18,3 +18,5 @@ ja:
       previous: "<"
       next: ">"
       truncate: "..."
+      first: "<<"
+      last: ">>"

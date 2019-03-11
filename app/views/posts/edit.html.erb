@@ -33,7 +33,7 @@
       <div class="card">
         <div class="card-body">
           <%= f.date_select :purchased_at,
-                    start_year: 2000, end_year: Time.current.year,
+                    start_year: Time.current.year, end_year: 2000,
                     include_blank: true,
                     use_month_numbers: true %>
         </div>
