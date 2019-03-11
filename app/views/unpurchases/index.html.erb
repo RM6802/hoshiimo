@@ -1,14 +1,14 @@
-<% @user? provide(:title, "#{@user.name}さんの購入済一覧") : provide(:title, "購入済一覧") %>
+<% @user? provide(:title, "#{@user.name}さんの未購入一覧") : provide(:title, "未購入一覧") %>
 
 <div class="container-fluid">
   <% if params[:user_id].present? %>
     <% if current_user == @user %>
-      <h3><%= "#{@user.name}さんの購入済一覧" %></h3>
+      <h3><%= "#{@user.name}さんの未購入一覧" %></h3>
     <% else %>
-      <h3><%= "#{@user.name}さんの購入済一覧(公開用)" %></h3>
+      <h3><%= "#{@user.name}さんの未購入一覧(公開用)" %></h3>
     <% end %>
   <% else %>
-    <h3>購入済一覧(公開用)</h3>
+    <h3>未購入一覧(公開用)</h3>
   <% end %>
 
   <% if user_signed_in? %>
@@ -18,48 +18,48 @@
   <% if params[:user_id].present? %>
     <% if current_user == @user %>
       <div><%= link_to "#{@user.name}さんの投稿一覧へ", user_posts_path(@user) %></div>
-      <div><%= link_to "#{@user.name}さんの未購入一覧へ", user_unpurchases_path(@user) %></div><br />
+      <div><%= link_to "#{@user.name}さんの購入済一覧へ", user_purchases_path(@user) %></div><br />
     <% else %>
       <div><%= link_to "#{@user.name}さんの投稿一覧へ(公開用)", user_posts_path(@user) %></div>
-      <div><%= link_to "#{@user.name}さんの未購入一覧へ(公開用)", user_unpurchases_path(@user) %></div><br />
+      <div><%= link_to "#{@user.name}さんの購入済一覧へ(公開用)", user_purchases_path(@user) %></div><br />
     <% end %>
   <% else %>
     <div><%= link_to "投稿一覧へ", posts_path %></div>
-    <div><%= link_to "未購入一覧へ", unpurchases_path %></div><br />
+    <div><%= link_to "購入済一覧へ", purchases_path %></div><br />
   <% end %>
 
   <div class="posts">
-    <%= paginate @purchases %>
-    <% if @purchases.present? %>
-      <% @purchases.each do |purchase| %>
+    <%= paginate @unpurchases %>
+    <% if @unpurchases.present? %>
+      <% @unpurchases.each do |unpurchase| %>
         <div class="list-group">
           <li class="list-group-item">
-            <div class="purchased">
-              <%= link_to gravatar_for(purchase.user, size: 50), purchase.user %>
+            <div class="unpurchased">
+              <%= link_to gravatar_for(unpurchase.user, size: 50), unpurchase.user %>
               <% if params[:user_id].present? %>
                 <span class="user">
-                  <%= purchase.user.name %>
+                  <%= unpurchase.user.name %>
                 </span>
-              <% elsif current_user == purchase.user %>
+              <% elsif current_user == unpurchase.user %>
                 <span class="user">
-                  <%= link_to "#{purchase.user.name} (購入一覧へ)", user_purchases_path(purchase.user) %>
+                  <%= link_to "#{unpurchase.user.name} (未購入一覧へ)", user_unpurchases_path(unpurchase.user) %>
                 </span>
               <% else %>
                 <span class="user">
-                  <%= link_to "#{purchase.user.name} (公開購入物一覧へ)", user_purchases_path(purchase.user) %>
+                  <%= link_to "#{unpurchase.user.name} (公開未購入一覧へ)", user_unpurchases_path(unpurchase.user) %>
                 </span>
               <% end %>
-              <span class="post"><%= link_to purchase.name, post_path(purchase) %></span>
+              <span class="post"><%= link_to unpurchase.name, post_path(unpurchase) %></span>
               <span class="timestamp">
-                投稿時間：<%= time_ago_in_words(purchase.created_at) %>前
-                <% if current_user == purchase.user %>
-                  <%= link_to "削除", post_path(purchase), method: :delete,
+                投稿時間：<%= time_ago_in_words(unpurchase.created_at) %>前
+                <% if current_user == unpurchase.user %>
+                  <%= link_to "削除", post_path(unpurchase), method: :delete,
                                                    data: { confirm: "You sure?" } %>
                 <% end %>
               </span>
               <% if params[:user_id].present? %>
                 <span class="published">
-                  <% if purchase.published == false %>
+                  <% if unpurchase.published == false %>
                     公開設定：非公開
                   <% else %>
                     公開設定：公開
@@ -73,6 +73,6 @@
     <% else %>
       <h3>投稿がありません</h3>
     <% end %>
-    <%= paginate @purchases %>
+    <%= paginate @unpurchases %>
   </div>
 </div>

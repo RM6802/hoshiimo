@@ -1,13 +1,13 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])
-      @posts = @user.posts.readable_for(current_user).unpurchased.order(created_at: :desc).page(params[:page]).per(10)
+      @posts = @user.posts.readable_for(current_user).order(created_at: :desc).page(params[:page]).per(10)
     else
-      @posts = Post.published.unpurchased.order(created_at: :desc).page(params[:page]).per(10)
+      @posts = Post.published.order(created_at: :desc).page(params[:page]).per(10)
     end
   end
 

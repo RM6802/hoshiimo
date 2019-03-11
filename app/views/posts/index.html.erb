@@ -3,12 +3,19 @@
 <div class="container-fluid">
   <% if params[:user_id].present? %>
     <% if current_user == @user %>
-      <h3><%= "#{@user.name}さんの欲しい物一覧" %></h3>
+      <h3><%= "#{@user.name}さんの投稿一覧" %></h3>
     <% else %>
-      <h3><%= "#{@user.name}さんの欲しい物一覧(公開用)" %></h3>
+      <h3><%= "#{@user.name}さんの投稿一覧(公開用)" %></h3>
     <% end %>
   <% else %>
-    <h3>欲しい物一覧</h3>
+    <h3>公開投稿一覧</h3>
+  <% end %>
+
+  <% if @posts.present? %>
+    <p>
+      <span style="color:#abd700;">緑:未購入</span><br>
+      <span style="color:#ffab6b;">赤:購入済</span>
+    </p>
   <% end %>
 
   <% if user_signed_in? %>
@@ -17,12 +24,15 @@
 
   <% if params[:user_id].present? %>
     <% if current_user == @user %>
-      <div><%= link_to "#{@user.name}さんの購入一覧へ", user_purchases_path(@user) %></div><br />
+      <div><%= link_to "#{@user.name}さんの未購入一覧へ", user_unpurchases_path(@user) %></div>
+      <div><%= link_to "#{@user.name}さんの購入済一覧へ", user_purchases_path(@user) %></div><br />
     <% else %>
-      <div><%= link_to "#{@user.name}さんの購入一覧へ(公開用)", user_purchases_path(@user) %></div><br />
+      <div><%= link_to "#{@user.name}さんの未購入一覧へ(公開用)", user_unpurchases_path(@user) %></div>
+      <div><%= link_to "#{@user.name}さんの購入済一覧へ(公開用)", user_purchases_path(@user) %></div><br />
     <% end %>
   <% else %>
-    <div><%= link_to "購入物一覧へ", purchases_path %></div><br />
+    <div><%= link_to "未購入一覧へ", unpurchases_path %></div>
+    <div><%= link_to "購入済一覧へ", purchases_path %></div><br />
   <% end %>
 
   <div class="posts">
@@ -31,28 +41,75 @@
       <% @posts.each do |post| %>
         <div class="list-group">
           <li class="list-group-item">
-            <%= link_to gravatar_for(post.user), post.user %>
-            <% if params[:user_id].present? %>
-              <span class="user">
-                <%= post.user.name %>
-              </span>
-            <% elsif current_user == post.user %>
-              <span class="user">
-                <%= link_to "#{post.user.name} (投稿一覧へ)", user_posts_path(post.user) %>
-              </span>
+            <% if post.purchased == false %>
+              <div class="unpurchased">
+                <%= link_to gravatar_for(post.user, size: 50), post.user %>
+                <% if params[:user_id].present? %>
+                  <span class="user">
+                    <%= post.user.name %>
+                  </span>
+                <% elsif current_user == post.user %>
+                  <span class="user">
+                    <%= link_to "#{post.user.name} (投稿一覧へ)", user_posts_path(post.user) %>
+                  </span>
+                <% else %>
+                  <span class="user">
+                    <%= link_to "#{post.user.name} (公開投稿一覧へ)", user_posts_path(post.user) %>
+                  </span>
+                <% end %>
+                <span class="post"><%= link_to post.name, post_path(post) %></span>
+                <span class="timestamp">
+                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
+                  <% if current_user == post.user %>
+                    <%= link_to "削除", post_path(post), method: :delete,
+                                                     data: { confirm: "You sure?" } %>
+                  <% end %>
+                </span>
+                <% if params[:user_id].present? %>
+                  <span class="published">
+                    <% if post.published == false %>
+                      公開設定：非公開
+                    <% else %>
+                      公開設定：公開
+                    <% end %>
+                  </span>
+                <% end %>
+              </div>
             <% else %>
-              <span class="user">
-                <%= link_to "#{post.user.name} (公開投稿一覧へ)", user_posts_path(post.user) %>
-              </span>
+              <div class="purchased">
+                <%= link_to gravatar_for(post.user, size: 50), post.user %>
+                <% if params[:user_id].present? %>
+                  <span class="user">
+                    <%= post.user.name %>
+                  </span>
+                <% elsif current_user == post.user %>
+                  <span class="user">
+                    <%= link_to "#{post.user.name} (投稿一覧へ)", user_posts_path(post.user) %>
+                  </span>
+                <% else %>
+                  <span class="user">
+                    <%= link_to "#{post.user.name} (公開投稿一覧へ)", user_posts_path(post.user) %>
+                  </span>
+                <% end %>
+                <span class="post"><%= link_to post.name, post_path(post) %></span>
+                <span class="timestamp">
+                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
+                  <% if current_user == post.user %>
+                    <%= link_to "削除", post_path(post), method: :delete,
+                                                     data: { confirm: "You sure?" } %>
+                  <% end %>
+                </span>
+                <% if params[:user_id].present? %>
+                  <span class="published">
+                    <% if post.published == false %>
+                      公開設定：非公開
+                    <% else %>
+                      公開設定：公開
+                    <% end %>
+                  </span>
+                <% end %>
+              </div>
             <% end %>
-            <span class="post"><%= link_to post.name, post_path(post) %></span>
-            <span class="timestamp">
-              投稿時間：<%= time_ago_in_words(post.created_at) %>前
-              <% if current_user == post.user %>
-                <%= link_to "削除", post_path(post), method: :delete,
-                                                 data: { confirm: "You sure?" } %>
-              <% end %>
-            </span>
           </li>
         </div>
       <% end %>

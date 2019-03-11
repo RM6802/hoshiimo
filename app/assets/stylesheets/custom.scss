@@ -177,9 +177,24 @@ body{
     float: left;
     margin-right: 10px;
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: 10px;
+  }
+
+  .published {
+    color: gray;
+    display: block;
+    margin-left: 70px;
+  }
+
+  .unpurchased {
+    background-color: rgba(214,229,195,0.5);
+  }
+  .purchased {
+    background-color: rgba(255,227,188,0.5);
   }
 }
+
+
 //
 //
 // .new-post-link{

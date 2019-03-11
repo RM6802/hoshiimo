@@ -1,25 +1,65 @@
 <% if user_signed_in? %>
 
 <div class="container-fluid">
-  <h3><%= "#{current_user.name}さんの欲しい物一覧" %></h3>
+  <h3><%= "#{current_user.name}さんの投稿一覧" %></h3>
+  <% if @posts.present? %>
+    <p>
+      <span style="color:#abd700;">緑:未購入</span><br>
+      <span style="color:#ffab6b;">赤:購入済</span>
+    </p>
+  <% end %>
+
   <div><%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %></div>
-  <div><%= link_to "#{current_user.name}さんの購入一覧へ", user_purchases_path(current_user) %></div><br />
+  <div><%= link_to "#{current_user.name}さんの未購入一覧へ", user_unpurchases_path(current_user) %></div>
+  <div><%= link_to "#{current_user.name}さんの購入済一覧へ", user_purchases_path(current_user) %></div><br />
+
   <div class="posts">
     <%= paginate @posts %>
     <% if @posts.present? %>
       <% @posts.each do |post| %>
         <div class="list-group">
           <li class="list-group-item">
-            <%= link_to gravatar_for(post.user), post.user %>
-            <span class="user">
-              <%= post.user.name %>
-            </span>
-            <span class="post"><%= link_to post.name, post_path(post) %></span>
-            <span class="timestamp">
-              投稿時間：<%= time_ago_in_words(post.created_at) %>前
-              <%= link_to "削除", post_path(post), method: :delete,
-                                               data: { confirm: "You sure?" } %>
-            </span>
+            <% if post.purchased == false %>
+              <div class="unpurchased">
+                <%= link_to gravatar_for(post.user, size: 50), post.user %>
+                <span class="user">
+                  <%= post.user.name %>
+                </span>
+                <span class="post"><%= link_to post.name, post_path(post) %></span>
+                <span class="timestamp">
+                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
+                  <%= link_to "削除", post_path(post), method: :delete,
+                                                   data: { confirm: "You sure?" } %>
+                </span>
+                <span class="published">
+                  <% if post.published == false %>
+                    公開設定：非公開
+                  <% else %>
+                    公開設定：公開
+                  <% end %>
+                </span>
+              </div>
+            <% else %>
+              <div class="purchased">
+                <%= link_to gravatar_for(post.user, size: 50), post.user %>
+                <span class="user">
+                  <%= post.user.name %>
+                </span>
+                <span class="post"><%= link_to post.name, post_path(post) %></span>
+                <span class="timestamp">
+                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
+                  <%= link_to "削除", post_path(post), method: :delete,
+                                                   data: { confirm: "You sure?" } %>
+                </span>
+                <span class="published">
+                  <% if post.published == false %>
+                    公開設定：非公開
+                  <% else %>
+                    公開設定：公開
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
           </li>
         </div>
       <% end %>

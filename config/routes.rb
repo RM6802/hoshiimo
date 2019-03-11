@@ -13,8 +13,10 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show] do
     resources :posts, only: [:index]
     resources :purchases, only: [:index]
+    resources :unpurchases, only: [:index]
   end
 
   resources :posts
   resources :purchases, only: [:index]
+  resources :unpurchases, only: [:index]
 end

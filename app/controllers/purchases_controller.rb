@@ -1,6 +1,4 @@
 class PurchasesController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
-
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])

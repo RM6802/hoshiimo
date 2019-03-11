@@ -13,7 +13,7 @@
         <%= link_to(users_path, class: "nav-link") do %>ユーザー一覧<% end %>
       </li>
       <li class="nav-item active">
-        <%= link_to(posts_path, class: "nav-link") do %>欲しい物<% end %>
+        <%= link_to(posts_path, class: "nav-link") do %>公開投稿一覧<% end %>
       </li>
       <% if user_signed_in? %>
         <li class="nav-item active">
@@ -27,10 +27,9 @@
         <li class="nav-item dropdown active">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">アカウント</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <%= link_to(user_posts_path(current_user), class: "dropdown-item") do %>マイ投稿<% end %>
-            <%= link_to(user_purchases_path(current_user), class: "dropdown-item") do %>マイ購入<% end %>
-            <%= link_to(posts_path, class: "dropdown-item") do %>未購入一覧<% end %>
-            <%= link_to(purchases_path, class: "dropdown-item") do %>購入一覧<% end %>
+            <%= link_to(user_posts_path(current_user), class: "dropdown-item") do %>投稿一覧<% end %>
+            <%= link_to(user_unpurchases_path(current_user), class: "dropdown-item") do %>未購入一覧<% end %>
+            <%= link_to(user_purchases_path(current_user), class: "dropdown-item") do %>購入済一覧<% end %>
             <%= link_to(edit_user_registration_path, class: "dropdown-item") do %>プロフィール変更・退会<% end %>
             <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>ログアウト<% end %>
           </div>
