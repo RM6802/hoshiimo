@@ -1,24 +1,12 @@
-# README
+# 欲しいものを管理できるWebアプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+オリジナルポートフォリオです。
+https://hoshiimo-app.herokuapp.com/
 
-Things you may want to cover:
+# 主な実装機能
 
-* Ruby version
+* deviseを利用したログイン・新規登録、パスワードリセット、remember-me認証、メール認証機能
 
-* System dependencies
+* 投稿や未購入・購入済商品の一覧ページおよび詳細ページ
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* rubocop
