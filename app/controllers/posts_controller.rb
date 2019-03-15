@@ -13,7 +13,11 @@ class PostsController < ApplicationController
 
 
   def show
-    @post = Post.readable_for(current_user).find(params[:id])
+    if @post = Post.readable_for(current_user).find_by(id: params[:id])
+      render 'show'
+    else
+      render 'errors/not_found_or_unpublished'
+    end
   end
 
   def new
@@ -25,10 +29,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.user = current_user
+    @post = current_user.posts.new(post_params)
     if @post.save
-      redirect_to @post, notice: "投稿を作成しました。"
+      redirect_to user_posts_path(current_user), notice: "投稿を作成しました。"
     else
       render "new"
     end
@@ -36,7 +39,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update_attributes(post_params)
-      redirect_to @post, notice: "投稿内容を更新しました。"
+      redirect_to user_posts_path(current_user), notice: "投稿内容を更新しました。"
     else
       render 'edit'
     end
