@@ -66,6 +66,10 @@ end
 
 group :test do
   gem 'capybara', '~> 2.15.2'
+  gem 'database_rewinder'
+  gem 'launchy', '~> 2.4.3'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 end
 
 group :production do

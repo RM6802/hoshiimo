@@ -44,11 +44,11 @@
     <div class="card">
       <div class="card-body">
         <div class="form-check form-check-inline">
-          <%= f.radio_button :published, false, class: "form-check-input", type: "checkbox" %>
+          <%= f.radio_button :published, false, class: "form-check-input", type: "checkbox", id: "unpublished" %>
           <%= f.label :unpublished, for: "published_2", class: "form-check-label" %>
         </div>
         <div class="form-check form-check-inline">
-          <%= f.radio_button :published, true, class: "form-check-input", type: "checkbox" %>
+          <%= f.radio_button :published, true, class: "form-check-input", type: "checkbox", id: "published" %>
           <%= f.label :published, for: "published_1", class: "form-check-label" %>
         </div>
       </div>
