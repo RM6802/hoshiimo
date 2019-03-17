@@ -4,8 +4,8 @@
   <h3><%= "#{current_user.name}さんの投稿一覧" %></h3>
   <% if @posts.present? %>
     <p>
-      <span style="color:#abd700;">緑:未購入</span><br>
-      <span style="color:#ffab6b;">赤:購入済</span>
+      <span class="green" style="color:#abd700;">緑:未購入</span><br>
+      <span class="red" style="color:#ffab6b;">赤:購入済</span>
     </p>
   <% end %>
 
@@ -26,17 +26,17 @@
                   <%= post.user.name %>
                 </span>
                 <span class="post"><%= link_to post.name, post_path(post) %></span>
-                <span class="timestamp">
-                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
-                  <%= link_to "削除", post_path(post), method: :delete,
-                                                   data: { confirm: "You sure?" } %>
-                </span>
                 <span class="published">
                   <% if post.published == false %>
                     公開設定：非公開
                   <% else %>
                     公開設定：公開
                   <% end %>
+                </span>
+                <span class="timestamp">
+                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
+                  <%= link_to "削除", post_path(post), method: :delete,
+                                                   data: { confirm: "You sure?" } %>
                 </span>
               </div>
             <% else %>
@@ -46,17 +46,17 @@
                   <%= post.user.name %>
                 </span>
                 <span class="post"><%= link_to post.name, post_path(post) %></span>
-                <span class="timestamp">
-                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
-                  <%= link_to "削除", post_path(post), method: :delete,
-                                                   data: { confirm: "You sure?" } %>
-                </span>
                 <span class="published">
                   <% if post.published == false %>
                     公開設定：非公開
                   <% else %>
                     公開設定：公開
                   <% end %>
+                </span>
+                <span class="timestamp">
+                  投稿時間：<%= time_ago_in_words(post.created_at) %>前
+                  <%= link_to "削除", post_path(post), method: :delete,
+                                                   data: { confirm: "You sure?" } %>
                 </span>
               </div>
             <% end %>

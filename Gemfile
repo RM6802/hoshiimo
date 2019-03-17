@@ -64,6 +64,10 @@ group :development do
   gem 'spring-commands-rspec'
 end
 
+group :test do
+  gem 'capybara', '~> 2.15.2'
+end
+
 group :production do
   gem 'pg'
 end
