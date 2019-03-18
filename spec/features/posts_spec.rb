@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.feature "Posts", type: :feature do
-  include_examples :sign_in
   let!(:other_user) { create(:user) }
   let!(:other_post1) { create(:post, user: other_user, published: true, purchased: true) }
   let!(:other_post2) { create(:post, user: other_user, published: false) }
   let!(:other_post3) { create(:post, user: other_user, published: true, purchased: false) }
+
+  include_examples :sign_in
 
   background do
     sign_in current_user
@@ -15,17 +16,17 @@ RSpec.feature "Posts", type: :feature do
     visit new_post_path
     expect(page).to have_current_path(new_post_path)
 
-    #投稿が失敗する場合
+    # 投稿が失敗する場合
     fill_in "商品名 (必須)", with: ""
     fill_in "商品説明", with: "hogehoge"
     fill_in "値段", with: -1000
     choose "unpurchased"
     choose "published"
-    expect { click_on "投稿" }.to change { Post.count }.by(0)
+    expect { click_on "投稿" }.to change(Post, :count).by(0)
     expect(page).to have_content "商品名を入力してください"
     expect(page).to have_content "値段は0以上の値にしてください"
 
-    #投稿が成功する場合
+    # 投稿が成功する場合
     fill_in "商品名 (必須)", with: "テスト商品"
     fill_in "商品説明", with: "hogehoge"
     fill_in "値段", with: 1000
@@ -34,7 +35,7 @@ RSpec.feature "Posts", type: :feature do
     select 1, from: 'post_purchased_at_2i'
     select 1, from: 'post_purchased_at_3i'
     choose "published"
-    expect { click_on "投稿" }.to change { Post.count }.by(1)
+    expect { click_on "投稿" }.to change(Post, :count).by(1)
     expect(page).to have_current_path(user_posts_path(current_user.id))
     expect(page).to have_content "投稿を作成しました。"
   end
@@ -98,7 +99,6 @@ RSpec.feature "Posts", type: :feature do
         expect(page).to have_no_link "#{other_post3.name}"
       end
     end
-
   end
 
   context "個人の投稿一覧" do
@@ -173,7 +173,7 @@ RSpec.feature "Posts", type: :feature do
     find('.log-out').click
     sign_in other_user
     visit posts_path
-    expect { all('.list-group-item')[0].click_on "削除" }.to change { Post.count }.by(-1)
+    expect { all('.list-group-item')[0].click_on "削除" }.to change(Post, :count).by(-1)
     expect(page).to have_current_path(posts_path)
     expect(page).to have_content "投稿を削除しました。"
     within('.posts') do

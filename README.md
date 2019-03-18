@@ -10,3 +10,7 @@ https://hoshiimo-app.herokuapp.com/
 * 投稿や未購入・購入済商品の一覧ページおよび詳細ページ
 
 * rubocop
+
+* Rspec(controller spec, model spec, feature spec, helper spec)
+
+今後も順次、機能を追加していく予定です。

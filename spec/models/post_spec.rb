@@ -51,7 +51,7 @@ RSpec.describe Post, type: :model do
     it "ユーザーが削除されると紐づいた投稿も削除されること" do
       user = create(:user, name: "Tom")
       post = create(:post, user: user)
-      expect{ user.destroy }.to change{ Post.count }.by(-1)
+      expect { user.destroy }.to change(Post, :count).by(-1)
     end
 
     it "一人のユーザーが複数の投稿を所持できる" do
@@ -63,80 +63,61 @@ RSpec.describe Post, type: :model do
   end
 
   describe "スコープのテスト" do
+    let!(:user1) { create(:user, name: "first_user") }
+    let!(:user2) { create(:user, name: "second_user") }
+    let!(:user3) { create(:user, name: "third_user") }
+    let(:post1) { create(:post, published: false, purchased: false, user: user1) }
+    let(:post2) { create(:post, published: false, purchased: false, user: user2) }
+    let(:post3) { create(:post, published: true, purchased: true, user: user1) }
+    let(:post4) { create(:post, published: true, purchased: true, user: user2) }
+
     describe "公開状態の投稿を検索する" do
       context "一致するデータが見つかるとき" do
         it "一致する投稿を返すこと" do
-          post1 = create(:post, published: true)
-          post2 = create(:post, published: false)
-          expect(Post.published).to eq [post1]
+          expect(Post.published).to eq [post3, post4]
         end
       end
 
       context "一致するデータが見つからないとき" do
         it "空のコレクションを返すこと" do
-          post1 = create(:post, published: false)
-          post2 = create(:post, published: false)
           expect(Post.published).to be_empty
         end
       end
     end
 
     describe "任意のユーザーの投稿または公開投稿を検索する" do
-      before do
-        @user1 = create(:user, name: "first_user")
-        @user2 = create(:user, name: "second_user")
-        @user3 = create(:user, name: "third_user")
-        @post1 = create(:post, published: false, user: @user1)
-        @post2 = create(:post, published: false, user: @user2)
-      end
-
       context "一致するデータが見つかるとき" do
         it "一致する投稿を返すこと" do
-          @post3 = create(:post, published: true, user: @user1)
-          @post4 = create(:post, published: true, user: @user2)
-          expect(Post.full(@user1)).to eq [@post1, @post3, @post4]
+          expect(Post.full(user1)).to eq [post1, post3, post4]
         end
       end
 
       context "一致するデータが見つからないとき" do
         it "空のコレクションを返すこと" do
-          expect(Post.full(@user3)).to be_empty
+          expect(Post.full(user3)).to be_empty
         end
       end
     end
 
     describe "readable_forスコープの検証" do
-      before do
-        @user1 = create(:user, name: "first_user")
-        @user2 = create(:user, name: "second_user")
-        @post1 = create(:post, published: false, user: @user1)
-        @post2 = create(:post, published: false, user: @user2)
-        @post3 = create(:post, published: true, user: @user1)
-        @post4 = create(:post, published: true, user: @user2)
-      end
-
-      context "任意のユーザーがいる場合" do
+      context "投稿の中に任意のユーザーによる投稿がある場合" do
         it "ユーザーの投稿または公開投稿を検索する" do
-          expect(Post.readable_for(@user1)).to eq [@post1, @post3, @post4]
+          expect(Post.readable_for(user1)).to eq [post1, post3, post4]
         end
       end
 
-      context "任意のユーザーがいない場合" do
+      context "投稿の中に任意のユーザーによる投稿がない場合" do
         it "公開投稿を検索する" do
-          expect(Post.readable_for(@user3)).to eq [@post3, @post4]
+          expect(Post.readable_for(user3)).to eq [post3, post4]
         end
       end
     end
 
     describe "購入状態を検索条件にする" do
       describe "purchasedスコープの検証" do
-        before do
-          @post1 = create(:post, purchased: false)
-        end
         context "一致するデータが見つかるとき" do
           it "一致する投稿を返すこと" do
-            @post2 = create(:post, purchased: true)
-            expect(Post.purchased).to eq [@post2]
+            expect(Post.purchased).to eq [post3, post4]
           end
         end
 
@@ -148,13 +129,9 @@ RSpec.describe Post, type: :model do
       end
 
       describe "unpurchasedスコープの検証" do
-        before do
-          @post1 = create(:post, purchased: true)
-        end
         context "一致するデータが見つかるとき" do
           it "一致する投稿を返すこと" do
-            @post2 = create(:post, purchased: false)
-            expect(Post.unpurchased).to eq [@post2]
+            expect(Post.unpurchased).to eq [post1, post2]
           end
         end
 

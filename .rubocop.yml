@@ -21,3 +21,15 @@ Airbnb/OptArgParameters:
 
 Metrics/LineLength:
   Max: 150
+
+Airbnb/SimpleModifierConditional:
+  Enabled: false
+
+Style/ColonMethodCall:
+  Enabled: false
+
+RSpec/SharedExamples:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false

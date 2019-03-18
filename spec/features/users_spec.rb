@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "Users", type: :feature do
-  include_examples :sign_in
   let!(:other_user) { create(:user, bio: "こんにちは") }
+
+  include_examples :sign_in
 
   background do
     sign_in current_user
@@ -32,7 +33,7 @@ RSpec.feature "Users", type: :feature do
     visit user_path(current_user)
     click_on "ユーザー情報編集"
     expect(page).to have_button "アカウントを削除"
-    expect { click_button "アカウントを削除" }.to change { User.count }.by(-1)
+    expect { click_button "アカウントを削除" }.to change(User, :count).by(-1)
     expect(page).to have_current_path(root_path)
     expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
   end
@@ -45,7 +46,6 @@ RSpec.feature "Users", type: :feature do
     click_on other_user.name
     expect(page).to have_link "#{other_user.name} (公開投稿一覧へ)"
   end
-
 
   scenario "他のユーザーでログインし、ユーザー一覧ページにアクセスする" do
     visit user_path(current_user)

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, type: :controller do
-
   describe "#index" do
     let!(:user) { create(:user) }
     let!(:other_user) { create(:user) }
@@ -278,9 +277,7 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it "投稿を作成する" do
-        expect {
-          post :create, params: { post: post_attributes }
-        }.to change(user.posts, :count).by(1)
+        expect { post :create, params: { post: post_attributes } }.to change(user.posts, :count).by(1)
       end
 
       it "投稿を作成したら、ユーザーの投稿一覧ページにリダイレクトする" do
@@ -431,9 +428,7 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it "投稿を削除する" do
-        expect {
-          delete :destroy, params: { id: post.id }
-        }.to change(user.posts, :count).by(-1)
+        expect { delete :destroy, params: { id: post.id } }.to change(user.posts, :count).by(-1)
       end
 
       # request.envで元ページのurlを書き込む

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature "Homes", type: :feature do
-
   given!(:user) { create(:user) }
 
   context "ゲストユーザーの場合" do

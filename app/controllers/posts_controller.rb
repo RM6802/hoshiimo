@@ -11,9 +11,9 @@ class PostsController < ApplicationController
     end
   end
 
-
   def show
-    if @post = Post.readable_for(current_user).find_by(id: params[:id])
+    @post = Post.readable_for(current_user).find_by(id: params[:id])
+    if @post
       render 'show'
     else
       render 'errors/not_found_or_unpublished'
@@ -52,13 +52,13 @@ class PostsController < ApplicationController
 
   private
 
-    def post_params
-      params.require(:post).permit(:name, :description, :price,
-                                   :purchased, :purchased_at, :published)
-    end
+  def post_params
+    params.require(:post).permit(:name, :description, :price,
+                                 :purchased, :purchased_at, :published)
+  end
 
-    def correct_user
-      @post = current_user.posts.find_by(id: params[:id])
-      redirect_to(root_url) if @post.nil?
-    end
+  def correct_user
+    @post = current_user.posts.find_by(id: params[:id])
+    redirect_to(root_url) if @post.nil?
+  end
 end

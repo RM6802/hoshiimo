@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature "SignUps", type: :feature do
-
   feature "ユーザーはサインアップに成功する" do
     background do
       ActionMailer::Base.deliveries.clear
@@ -61,7 +60,7 @@ RSpec.feature "SignUps", type: :feature do
       end
       expect(page).to have_content "ログインしました。"
 
-      #ログアウト後に再度ログインする
+      # ログアウト後に再度ログインする
       find('.log-out').click
       expect(page).to have_content "ログアウトしました。"
       within '.signin' do
