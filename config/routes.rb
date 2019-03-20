@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     resources :unpurchases, only: [:index]
   end
 
-  resources :posts
+  resources :posts do
+    get "search", on: :collection
+  end
   resources :purchases, only: [:index]
   resources :unpurchases, only: [:index]
 end

@@ -50,15 +50,13 @@
                 </span>
               <% end %>
               <span class="post"><%= link_to purchase.name, post_path(purchase) %></span>
-              <% if params[:user_id].present? %>
-                <span class="published">
-                  <% if purchase.published == false %>
-                    公開設定：非公開
-                  <% else %>
-                    公開設定：公開
-                  <% end %>
-                </span>
-              <% end %>
+              <span class="published">
+                <% if purchase.published == false %>
+                  公開設定：非公開
+                <% else %>
+                  公開設定：公開
+                <% end %>
+              </span>
               <span class="timestamp">
                 投稿時間：<%= time_ago_in_words(purchase.created_at) %>前
                 <% if current_user == purchase.user %>

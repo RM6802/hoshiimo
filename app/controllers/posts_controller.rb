@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
@@ -48,6 +48,10 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to request.referrer || root_url, notice: "投稿を削除しました。"
+  end
+
+  def search
+    @posts = Post.readable_for(current_user).search(params[:q]).order(created_at: "DESC").page(params[:page]).per(10)
   end
 
   private

@@ -181,4 +181,34 @@ RSpec.feature "Posts", type: :feature do
       expect(page).to have_link "#{other_post3.name}"
     end
   end
+
+  scenario "ホーム画面から投稿を検索する" do
+    visit root_path
+    expect(page).to have_current_path(root_path)
+
+    # 空欄で検索する場合
+    fill_in "投稿を検索", with: ""
+    click_on "検索"
+    expect(page).to have_content "' 'の検索結果"
+    within('.posts') do
+      expect(page).to have_link "#{current_user_post.name}"
+      expect(page).to have_link "#{other_post1.name}"
+      expect(page).to have_link "#{other_post3.name}"
+      expect(page).to have_no_link "#{other_post2.name}"
+    end
+
+    # 一致する投稿がない場合
+    fill_in "投稿を検索", with: "a" * 100
+    click_on "検索"
+    expect(page).to have_content "' #{"a" * 100} 'の検索結果"
+    expect(page).to have_content "投稿がありません"
+
+    # 投稿が検索できた場合
+    fill_in "投稿を検索", with: "#{current_user_post.name}"
+    click_on "検索"
+    expect(page).to have_content "' #{current_user_post.name} 'の検索結果"
+    within('.posts') do
+      expect(page).to have_link "#{current_user_post.name}"
+    end
+  end
 end

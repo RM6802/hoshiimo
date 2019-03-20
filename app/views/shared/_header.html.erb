@@ -43,11 +43,9 @@
         </li>
       <% end %>
     </ul>
-    <% if user_signed_in? %>
-      <!-- <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="投稿を検索" aria-label="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">検索</button>
-      </form> -->
+    <%= form_tag :search_posts, method: :get, class: "search form-inline my-2 my-lg-0" do %>
+      <%= text_field_tag "q", params[:q], class: "form-control mr-sm-2", placeholder: "投稿を検索" %>
+      <%= submit_tag "検索", class: "btn btn-secondary my-2 my-sm-0" %>
     <% end %>
   </div>
 </nav>

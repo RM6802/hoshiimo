@@ -1,39 +1,16 @@
-<% @user? provide(:title, "#{@user.name}さんの投稿一覧") : provide(:title, "投稿一覧") %>
+<% provide(:title, "検索結果") %>
 
 <div class="container-fluid">
-  <% if params[:user_id].present? %>
-    <% if current_user == @user %>
-      <h3><%= "#{@user.name}さんの投稿一覧" %></h3>
-    <% else %>
-      <h3><%= "#{@user.name}さんの投稿一覧(公開用)" %></h3>
-    <% end %>
-  <% else %>
-    <h3>公開投稿一覧</h3>
-  <% end %>
-
-  <% if @posts.present? %>
-    <p>
-      <span class="green" style="color:#abd700;">緑:未購入</span><br>
-      <span class="red" style="color:#ffab6b;">赤:購入済</span>
-    </p>
-  <% end %>
+  <h3><%= "' #{params[:q]} 'の検索結果" %></h3>
 
   <% if user_signed_in? %>
     <%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %>
   <% end %>
 
-  <% if params[:user_id].present? %>
-    <% if current_user == @user %>
-      <div><%= link_to "#{@user.name}さんの未購入一覧へ", user_unpurchases_path(@user) %></div>
-      <div><%= link_to "#{@user.name}さんの購入済一覧へ", user_purchases_path(@user) %></div><br />
-    <% else %>
-      <div><%= link_to "#{@user.name}さんの未購入一覧へ(公開用)", user_unpurchases_path(@user) %></div>
-      <div><%= link_to "#{@user.name}さんの購入済一覧へ(公開用)", user_purchases_path(@user) %></div><br />
-    <% end %>
-  <% else %>
-    <div><%= link_to "未購入一覧へ", unpurchases_path %></div>
-    <div><%= link_to "購入済一覧へ", purchases_path %></div><br />
-  <% end %>
+  <div><%= link_to "投稿一覧へ", posts_path %></div>
+  <div><%= link_to "未購入一覧へ", unpurchases_path %></div>
+  <div><%= link_to "購入済一覧へ", purchases_path %></div><br />
+
 
   <div class="posts">
     <%= paginate @posts %>

@@ -494,4 +494,67 @@ RSpec.describe PostsController, type: :controller do
       end
     end
   end
+
+  describe "#search" do
+    let!(:user) { create(:user) }
+    let!(:other_user) { create(:user) }
+    let!(:post1) { create(:post, name: "ABCD", user: user, published: true) }
+    let!(:post2) { create(:post, name: "ABC", user: user, published: false) }
+    let!(:post3) { create(:post, name: "AB", user: other_user, published: true) }
+    let!(:post4) { create(:post, name: "A", user: other_user, published: false) }
+    let!(:post5) { create(:post, name: "XYZ", user: other_user, published: true) }
+
+    it "正常にレスポンスを返すこと" do
+      get :search, params: { q: "A" }
+      expect(response).to be_successful
+    end
+
+    it "200レスポンスを返すこと" do
+      get :search, params: { q: "A" }
+      expect(response).to have_http_status 200
+    end
+
+    it "searchテンプレートを表示させる" do
+      get :search, params: { q: "A" }
+      expect(response).to render_template :search
+    end
+
+    context "ログインユーザーの場合" do
+      before do
+        sign_in user
+      end
+
+      it "自身の投稿と他ユーザーの公開投稿が検索できる" do
+        get :search, params: { q: "A" }
+        expect(assigns(:posts)).to eq [post1, post2, post3]
+      end
+
+      it "一致するものがない時は何も返さない" do
+        get :search, params: { q: "Q" }
+        expect(assigns(:posts)).to be_empty
+      end
+
+      it "空欄での検索時は、全ての自身の投稿と他ユーザーの公開投稿を返す" do
+        get :search, params: { q: "" }
+        expect(assigns(:posts)).to eq [post1, post2, post3, post5]
+      end
+    end
+
+    context "ゲストユーザーの場合" do
+      it "公開投稿のみ検索できる" do
+        get :search, params: { q: "A" }
+        expect(assigns(:posts)).to eq [post1, post3]
+      end
+
+      it "一致するものがない時は何も返さない" do
+        get :search, params: { q: "Q" }
+        expect(assigns(:posts)).to be_empty
+      end
+
+      it "空欄での検索時は、全ての公開投稿を返す" do
+        get :search, params: { q: "" }
+        expect(assigns(:posts)).to eq [post1, post3, post5]
+      end
+    end
+  end
 end

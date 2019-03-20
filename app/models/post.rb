@@ -19,6 +19,11 @@ class Post < ApplicationRecord
   scope :purchased, -> { where(purchased: true) }
   scope :unpurchased, -> { where(purchased: false) }
 
+  def self.search(query)
+    return Post.all unless query
+    Post.where(['name LIKE ?', "%#{query}%"])
+  end
+
   private
 
   # 購入日が存在するならば、購入状態は購入済にする

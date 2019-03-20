@@ -50,15 +50,13 @@
                 </span>
               <% end %>
               <span class="post"><%= link_to unpurchase.name, post_path(unpurchase) %></span>
-              <% if params[:user_id].present? %>
-                <span class="published">
-                  <% if unpurchase.published == false %>
-                    公開設定：非公開
-                  <% else %>
-                    公開設定：公開
-                  <% end %>
-                </span>
-              <% end %>
+              <span class="published">
+                <% if unpurchase.published == false %>
+                  公開設定：非公開
+                <% else %>
+                  公開設定：公開
+                <% end %>
+              </span>
               <span class="timestamp">
                 投稿時間：<%= time_ago_in_words(unpurchase.created_at) %>前
                 <% if current_user == unpurchase.user %>
