@@ -78,7 +78,7 @@ RSpec.feature "Posts", type: :feature do
       expect(page).to have_link "投稿一覧へ"
       expect(page).to have_link "購入済一覧へ"
       within('.posts') do
-        expect(page).to have_content "#{other_user.name} (公開未購入一覧へ)"
+        expect(page).to have_content "#{other_user.name} (公開投稿一覧へ)"
         expect(page).to have_link "#{other_post3.name}"
         expect(page).to have_selector ".timestamp", text: "投稿時間："
         expect(page).to have_no_link "#{other_post1.name}"
@@ -92,7 +92,7 @@ RSpec.feature "Posts", type: :feature do
       expect(page).to have_link "投稿一覧へ"
       expect(page).to have_link "未購入一覧へ"
       within('.posts') do
-        expect(page).to have_content "#{other_user.name} (公開購入物一覧へ)"
+        expect(page).to have_content "#{other_user.name} (公開投稿一覧へ)"
         expect(page).to have_link "#{other_post1.name}"
         expect(page).to have_selector ".timestamp", text: "投稿時間："
         expect(page).to have_no_link "#{other_post2.name}"

@@ -28,49 +28,5 @@
     <div><%= link_to "購入済一覧へ", purchases_path %></div><br />
   <% end %>
 
-  <div class="posts">
-    <%= paginate @unpurchases %>
-    <% if @unpurchases.present? %>
-      <% @unpurchases.each do |unpurchase| %>
-        <div class="list-group">
-          <li class="list-group-item">
-            <div class="unpurchased">
-              <%= link_to gravatar_for(unpurchase.user, size: 50), unpurchase.user %>
-              <% if params[:user_id].present? %>
-                <span class="user">
-                  <%= unpurchase.user.name %>
-                </span>
-              <% elsif current_user == unpurchase.user %>
-                <span class="user">
-                  <%= link_to "#{unpurchase.user.name} (未購入一覧へ)", user_unpurchases_path(unpurchase.user) %>
-                </span>
-              <% else %>
-                <span class="user">
-                  <%= link_to "#{unpurchase.user.name} (公開未購入一覧へ)", user_unpurchases_path(unpurchase.user) %>
-                </span>
-              <% end %>
-              <span class="post"><%= link_to unpurchase.name, post_path(unpurchase) %></span>
-              <span class="published">
-                <% if unpurchase.published == false %>
-                  公開設定：非公開
-                <% else %>
-                  公開設定：公開
-                <% end %>
-              </span>
-              <span class="timestamp">
-                投稿時間：<%= time_ago_in_words(unpurchase.created_at) %>前
-                <% if current_user == unpurchase.user %>
-                  <%= link_to "削除", post_path(unpurchase), method: :delete,
-                                                   data: { confirm: "You sure?" } %>
-                <% end %>
-              </span>
-            </div>
-          </li>
-        </div>
-      <% end %>
-    <% else %>
-      <h3>投稿がありません</h3>
-    <% end %>
-    <%= paginate @unpurchases %>
-  </div>
+  <%= render 'shared/posts', posts: @unpurchases %>
 </div>

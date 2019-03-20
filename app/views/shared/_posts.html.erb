@@ -1,0 +1,23 @@
+<div class="posts">
+  <%= paginate posts %>
+  <% if posts.present? %>
+    <% posts.each do |post| %>
+      <div class="list-group">
+        <li class="list-group-item">
+          <% if post.purchased == false %>
+            <div class="unpurchased">
+              <%= render 'shared/post', post: post %>
+            </div>
+          <% else %>
+            <div class="purchased">
+              <%= render 'shared/post', post: post %>
+            </div>
+          <% end %>
+        </li>
+      </div>
+    <% end %>
+  <% else %>
+    <h3>投稿がありません</h3>
+  <% end %>
+  <%= paginate posts %>
+</div>
