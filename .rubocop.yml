@@ -33,3 +33,6 @@ RSpec/SharedExamples:
 
 Lint/UselessAssignment:
   Enabled: false
+
+Airbnb/SimpleUnless:
+  Enabled: false

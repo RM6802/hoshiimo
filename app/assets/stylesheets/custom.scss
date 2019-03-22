@@ -20,10 +20,6 @@ body{
   opacity: 0.7;
 }
 
-// .posts-content{
-//   margin-top: 100px;
-// }
-
 .text-content{
   text-align: center;
 }
@@ -34,35 +30,6 @@ body{
   flex-direction: column;
 }
 
-// .lead{
-//   word-break: break-all;
-// }
-
-//
-// .content{
-//   width: 100vw;
-//   height: 100vh;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   margin-top: 100px;
-// }
-//
-// .devise-content{
-//   width: 100vw;
-//   height: 100vh;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   margin-top: 100px;
-// }
-//
-// .posts-content {
-//   margin-top: 50px;
-// }
-//
 .alerts{
   position: relative;
   top: 50px;
@@ -74,7 +41,6 @@ body{
   background-color: green;
   color: white;
   text-align: center;
-  // position: fixed;
   z-index: 1;
 }
 
@@ -82,75 +48,14 @@ body{
   background-color: red;
   color: white;
   text-align: center;
-  // position: fixed;
   z-index: 1;
 }
-//
-// .content h1{
-//   font-size: 60px;
-// }
-//
-// .nav{
-//   padding-top: 15px;
-//   align-items: center;
-// }
-//
-// .signin{
-//   padding-top: 10px;
-// }
-//
-// .dropdown-item{
-//   color: brack;
-// }
-//
-// #error_explanation{
-//   margin-top: 200px;
-// }
-//
-// .delete-form{
-//   margin-top: 50px;
-// }
-//
-// .gravatar_edit{
-//   margin-top: 50px;
-// }
-//
-// .profile-wrap{
-//   margin-top: 100px;
-// }
-//
-// .form-wrap{
-//   padding-top: 300px;
-// }
-//
-//
-// .user-wrap{
-//   margin-top: 100px;
-// }
-//
-// .product-wrap{
-//   margin-top: 30px;
-// }
-//
-// .users-content{
-//   margin-top: 150px;
-// }
-//
-// .posts-content{
-//   margin-top: 250px;
-// }
-//
-// .debug_dump {
-//   position: absolute;
-//   top: 2000px;
-// }
-//
+
 .error-wrap {
   margin-top: 100px;
   text-align:center;
 }
-//
-//
+
 .posts {
   list-style: none;
   padding: 0;
@@ -185,33 +90,21 @@ body{
     display: block;
     margin-left: 70px;
   }
-
   .unpurchased {
     background-color: rgba(214,229,195,0.5);
   }
   .purchased {
     background-color: rgba(255,227,188,0.5);
   }
+  .like {
+    display: block;
+    text-align: right;
+    margin-right: 10px;
+    .liked {
+      color: rgba(255,33,25,1);
+    }
+    .unliked {
+      color: rgba(102,100,97,1);
+    }
+  }
 }
-
-
-//
-//
-// .new-post-link{
-//   position: relative;
-//   top: 210px;
-//   left: 10px;
-//
-// }
-//
-// .user-purchases-link{
-//   position: relative;
-//   top: 220px;
-//   left: 10px
-// }
-//
-// .posts-header {
-//   position: relative;
-//   top: 200px;
-//   left: 10px
-// }

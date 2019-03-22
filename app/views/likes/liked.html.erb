@@ -1,0 +1,7 @@
+<% provide(:title, "#{current_user.name}さんのいいね一覧") %>
+
+<div class="container-fluid">
+  <h3><%= "#{current_user.name}さんのいいね一覧" %></h3>
+
+  <%= render 'shared/posts', posts: @posts %>
+</div>

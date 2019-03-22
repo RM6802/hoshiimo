@@ -1,0 +1,13 @@
+<span class="like">
+  <% if current_user && current_user.likeable_for?(post) %>
+    <%= link_to "いいね!", like_post_path(post), method: :patch, class: "liked" %>
+  <% elsif current_user && post.likers.find_by(id: current_user.id) %>
+    <%= link_to "いいね取り消し", unlike_post_path(post), method: :patch, class: "unliked",
+                                                                data: { confirm: "You sure?" } %>
+  <% end %>
+  <% if post.likes.count > 0 %>
+    <%= link_to "★#{post.likes.count}", liker_post_path(post.id) %>
+  <% else %>
+    <%= "★#{post.likes.count}" %>
+  <% end %>
+</span>

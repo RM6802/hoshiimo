@@ -6,6 +6,12 @@ class User < ApplicationRecord
   validates :name,  presence: true, length: { maximum: 50 }, uniqueness: true
   validates :email, uniqueness: true
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
+
+  def likeable_for?(post)
+    post && post.user != self && !likes.exists?(post_id: post.id)
+  end
 
   def update_without_current_password(params, *options)
     params.delete(:current_password)

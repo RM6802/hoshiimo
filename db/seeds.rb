@@ -16,23 +16,23 @@ end
 
 users = User.order(:created_at).take(6)
 50.times do |n|
- content = Faker::Lorem.sentence(5)
- if n % 6 == 0
+  content = Faker::Lorem.sentence(5)
+  if n % 6 == 0
    purchased = true
    published = true
- elsif n % 2 == 0
+  elsif n % 2 == 0
    purchased = true
    published = false
- elsif n % 3 == 0
+  elsif n % 3 == 0
    purchased = false
    published = true
- else
+  else
    purchased = false
    published = false
- end
- users.each do |user|
-   user.posts.create!(name: content,
+  end
+  users.each do |user|
+    user.posts.create!(name: content,
                       purchased: purchased,
                       published: published)
- end
+  end
 end

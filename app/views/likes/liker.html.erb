@@ -1,0 +1,26 @@
+<% provide(:title, "#{@post.name}にいいねしたユーザー") %>
+
+<div class="container-fluid">
+  <h3><%= "' #{@post.name} 'にいいねしたユーザー" %></h3>
+
+  <%= paginate @users %>
+  <% @users.each do |user| %>
+    <div class="list-group">
+      <li class="list-group-item">
+        <h3>
+          <%= gravatar_for(user, size: 50) %>
+          <%= link_to user.name, user_path(user) %>
+        </h3>
+        <% if user.bio %>
+          <p class="lead">
+            <%= truncate user.bio %>
+            <% if user.bio.size > 30 %>
+              <%= link_to "もっと読む", user_path(user) %>
+            <% end %>
+          </p>
+        <% end %>
+      </li>
+    </div>
+  <% end %>
+  <%= paginate @users %>
+</div>

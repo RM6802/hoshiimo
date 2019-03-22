@@ -18,6 +18,9 @@ Rails.application.routes.draw do
 
   resources :posts do
     get "search", on: :collection
+    patch "like", "unlike", on: :member, controller: :likes
+    get "liked", on: :collection, controller: :likes
+    get "liker", on: :member, controller: :likes
   end
   resources :purchases, only: [:index]
   resources :unpurchases, only: [:index]

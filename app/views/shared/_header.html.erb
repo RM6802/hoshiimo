@@ -30,6 +30,7 @@
             <%= link_to(user_posts_path(current_user), class: "dropdown-item") do %>投稿一覧<% end %>
             <%= link_to(user_unpurchases_path(current_user), class: "dropdown-item") do %>未購入一覧<% end %>
             <%= link_to(user_purchases_path(current_user), class: "dropdown-item") do %>購入済一覧<% end %>
+            <%= link_to(liked_posts_path, class: "dropdown-item likes") do %>いいね一覧<% end %>
             <%= link_to(edit_user_registration_path, class: "dropdown-item") do %>プロフィール変更・退会<% end %>
             <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item log-out") do %>ログアウト<% end %>
           </div>

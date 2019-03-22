@@ -526,7 +526,7 @@ RSpec.describe PostsController, type: :controller do
 
       it "自身の投稿と他ユーザーの公開投稿が検索できる" do
         get :search, params: { q: "A" }
-        expect(assigns(:posts)).to eq [post1, post2, post3]
+        expect(assigns(:posts)).to match_array [post1, post2, post3]
       end
 
       it "一致するものがない時は何も返さない" do
@@ -536,14 +536,14 @@ RSpec.describe PostsController, type: :controller do
 
       it "空欄での検索時は、全ての自身の投稿と他ユーザーの公開投稿を返す" do
         get :search, params: { q: "" }
-        expect(assigns(:posts)).to eq [post1, post2, post3, post5]
+        expect(assigns(:posts)).to match_array [post1, post2, post3, post5]
       end
     end
 
     context "ゲストユーザーの場合" do
       it "公開投稿のみ検索できる" do
         get :search, params: { q: "A" }
-        expect(assigns(:posts)).to eq [post1, post3]
+        expect(assigns(:posts)).to match_array [post1, post3]
       end
 
       it "一致するものがない時は何も返さない" do
@@ -553,7 +553,7 @@ RSpec.describe PostsController, type: :controller do
 
       it "空欄での検索時は、全ての公開投稿を返す" do
         get :search, params: { q: "" }
-        expect(assigns(:posts)).to eq [post1, post3, post5]
+        expect(assigns(:posts)).to match_array [post1, post3, post5]
       end
     end
   end
