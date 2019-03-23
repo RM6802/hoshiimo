@@ -54,6 +54,10 @@ class PostsController < ApplicationController
     @posts = Post.readable_for(current_user).search(params[:q]).order(created_at: "DESC").page(params[:page]).per(10)
   end
 
+  def timeline
+    @feed_items = current_user.feed.full(current_user).order(created_at: "DESC").page(params[:page]).per(10)
+  end
+
   private
 
   def post_params

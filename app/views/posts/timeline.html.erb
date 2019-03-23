@@ -1,0 +1,14 @@
+<% provide(:title, "#{current_user.name}さんのタイムライン") %>
+
+<div class="container-fluid">
+  <h3><%= "#{current_user.name}さんのタイムライン" %></h3>
+
+  <% if @feed_items.present? %>
+    <p>
+      <span class="green" style="color:#abd700;">緑:未購入</span><br>
+      <span class="red" style="color:#ffab6b;">赤:購入済</span>
+    </p>
+  <% end %>
+
+  <%= render 'shared/posts', posts: @feed_items %>
+</div>

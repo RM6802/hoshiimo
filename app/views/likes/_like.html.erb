@@ -1,13 +1,10 @@
-<span class="like">
+<span id="like_form-<%= post.id %>">
   <% if current_user && current_user.likeable_for?(post) %>
-    <%= link_to "いいね!", like_post_path(post), method: :patch, class: "liked" %>
+    <%= link_to "★", like_post_path(post.id), method: :patch, remote: true, class: "liked" %>
+  <% elsif current_user && post.user == current_user %>
+    <%= "★" %>
   <% elsif current_user && post.likers.find_by(id: current_user.id) %>
-    <%= link_to "いいね取り消し", unlike_post_path(post), method: :patch, class: "unliked",
-                                                                data: { confirm: "You sure?" } %>
+    <%= link_to "★", unlike_post_path(post.id), method: :patch, remote: true, class: "unliked" %>
   <% end %>
-  <% if post.likes.count > 0 %>
-    <%= link_to "★#{post.likes.count}", liker_post_path(post.id) %>
-  <% else %>
-    <%= "★#{post.likes.count}" %>
-  <% end %>
+  <%= link_to "#{post.likes.count}", liker_post_path(post.id) %>
 </span>

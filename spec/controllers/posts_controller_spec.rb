@@ -451,15 +451,14 @@ RSpec.describe PostsController, type: :controller do
     context "他のユーザーの場合" do
       before do
         sign_in other_user
+        delete :destroy, params: { id: post.id }
       end
 
       it "レスポンスが失敗する" do
-        delete :destroy, params: { id: post.id }
         expect(response).not_to be_successful
       end
 
       it "302レスポンスを返す" do
-        delete :destroy, params: { id: post.id }
         expect(response).to have_http_status 302
       end
 
@@ -468,19 +467,20 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it "ホーム画面にリダイレクトする" do
-        delete :destroy, params: { id: post.id }
         expect(response).to redirect_to(root_url)
       end
     end
 
     context "ゲストユーザーの場合" do
-      it "レスポンスが失敗する" do
+      before do
         delete :destroy, params: { id: post.id }
+      end
+
+      it "レスポンスが失敗する" do
         expect(response).not_to be_successful
       end
 
       it "302レスポンスを返す" do
-        delete :destroy, params: { id: post.id }
         expect(response).to have_http_status 302
       end
 
@@ -489,7 +489,6 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it "ログインページにリダイレクトする" do
-        delete :destroy, params: { id: post.id }
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -554,6 +553,58 @@ RSpec.describe PostsController, type: :controller do
       it "空欄での検索時は、全ての公開投稿を返す" do
         get :search, params: { q: "" }
         expect(assigns(:posts)).to match_array [post1, post3, post5]
+      end
+    end
+  end
+
+  describe "#timeline" do
+    let!(:user) { create(:user) }
+    let!(:other_user) { create(:user) }
+    let!(:post1) { create(:post, user: user, published: true) }
+    let!(:post2) { create(:post, user: user, published: false) }
+    let!(:post3) { create(:post, user: other_user, published: true) }
+    let!(:post4) { create(:post, user: other_user, published: false) }
+    let!(:post5) { create(:post, user: other_user, published: true) }
+    let!(:relationship) { create(:relationship, follower_id: user.id, followed_id: other_user.id) }
+
+    context "ログインユーザーの場合" do
+      before do
+        sign_in user
+        get :timeline
+      end
+
+      it "正常にレスポンスを返すこと" do
+        expect(response).to be_successful
+      end
+
+      it "200レスポンスを返すこと" do
+        expect(response).to have_http_status 200
+      end
+
+      it "timelineテンプレートを表示させる" do
+        expect(response).to render_template :timeline
+      end
+
+      it "自身の投稿と他ユーザーの公開投稿が閲覧できる" do
+        expect(assigns(:feed_items)).to match_array [post1, post2, post3, post5]
+      end
+    end
+
+    context "ゲストユーザーの場合" do
+      before do
+        get :timeline
+      end
+
+      it "レスポンスが失敗する" do
+        expect(response).not_to be_successful
+      end
+
+      it "302レスポンスを返す" do
+        expect(response).to have_http_status 302
+      end
+
+      it "ログインページにリダイレクトする" do
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end

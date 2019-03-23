@@ -1,0 +1,43 @@
+<% provide(:title, @title) %>
+
+<div class="container-fluid">
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= gravatar_for @user %>
+        <h1><%= @user.name %></h1>
+        <span><%= link_to "プロフィール詳細へ", user_path(@user) %></span>
+      </section>
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3><%= @title %></h3>
+      <% if @users.any? %>
+        <ul class="users follow">
+          <%= paginate @users %>
+          <% @users.each do |user| %>
+            <div class="list-group">
+              <li class="list-group-item">
+                <h3>
+                  <%= gravatar_for(user, size: 50) %>
+                  <%= link_to user.name, user_path(user) %>
+                </h3>
+                <% if user.bio %>
+                  <p class="lead">
+                    <%= truncate user.bio %>
+                    <% if user.bio.size > 30 %>
+                      <%= link_to "もっと読む", user_path(user) %>
+                    <% end %>
+                  </p>
+                <% end %>
+              </li>
+            </div>
+          <% end %>
+          <%= paginate @users %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>

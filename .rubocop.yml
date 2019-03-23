@@ -20,7 +20,7 @@ Airbnb/OptArgParameters:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 150
+  Max: 200
 
 Airbnb/SimpleModifierConditional:
   Enabled: false

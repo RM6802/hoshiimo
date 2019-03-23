@@ -101,10 +101,54 @@ body{
     text-align: right;
     margin-right: 10px;
     .liked {
-      color: rgba(255,33,25,1);
-    }
-    .unliked {
       color: rgba(102,100,97,1);
     }
+    .unliked {
+      color: rgba(255,33,25,1);
+    }
   }
+}
+
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  margin-bottom: 10px;
+  padding: 0;
+  float: right;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+  a {
+    padding: 0;
+  }
+}
+
+.users.follow {
+  padding: 0;
+}
+
+#follow_form {
+  margin-bottom: 10px;
 }

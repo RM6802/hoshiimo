@@ -13,63 +13,48 @@ RSpec.describe LikesController, type: :controller do
         sign_in other_user
       end
 
-      it "302レスポンスを返す" do
-        patch :like, params: { id: post1.id }
-        expect(response).to have_http_status 302
+      it "レスポンスが成功する" do
+        patch :like, format: :js, params: { id: post1.id }
+        expect(response).to be_successful
+      end
+
+      it "200レスポンスを返す" do
+        patch :like, format: :js, params: { id: post1.id }
+        expect(response).to have_http_status 200
+      end
+
+      it "JS形式でレスポンスを返す" do
+        patch :like, format: :js, params: { id: post1.id }
+        expect(response.content_type).to eq 'text/javascript'
       end
 
       it "@postの割り当て" do
-        patch :like, params: { id: post1.id }
+        patch :like, format: :js, params: { id: post1.id }
         expect(assigns(:post)).to eq post1
       end
 
       it "いいねに成功する" do
-        expect { patch :like, params: { id: post1.id } }.to change(Like, :count).by(1)
+        expect { patch :like, format: :js, params: { id: post1.id } }.to change(Like, :count).by(1)
       end
 
-      it "非公開投稿はいいねできない" do
-        expect { patch :like, params: { id: post2.id } }.to change(Like, :count).by(0)
-      end
-
-      context "いいねをしたページがある場合" do
-        it "いいねに成功したら、元のページにリダイレクトする" do
-          request.env['HTTP_REFERER'] = user_posts_url(user)
-          patch :like, params: { id: post1.id }
-          expect(response).to redirect_to(user_posts_url(user))
-        end
-      end
-
-      context "いいねをしたページがない場合" do
-        it "いいねに成功したら、ホーム画面にリダイレクトする" do
-          patch :like, params: { id: post1.id }
-          expect(response).to redirect_to(root_url)
-        end
+      it "非公開投稿はいいねができない" do
+        expect { patch :like, format: :js, params: { id: post2.id } }.to change(Like, :count).by(0)
       end
     end
 
     context "ゲストユーザーの場合" do
-      before do
-        patch :like, params: { id: post1.id }
-      end
-
       it "レスポンスが失敗する" do
+        patch :like, format: :js, params: { id: post1.id }
         expect(response).not_to be_successful
       end
 
-      it "302レスポンスを返す" do
-        expect(response).to have_http_status 302
-      end
-
-      it "@postにnilが入る" do
-        expect(assigns(:post)).to eq nil
-      end
-
-      it "ログインページにリダイレクトする" do
-        expect(response).to redirect_to(new_user_session_path)
+      it "401レスポンスを返す" do
+        patch :like, format: :js, params: { id: post1.id }
+        expect(response).to have_http_status 401
       end
 
       it "いいねに失敗する" do
-        expect { patch :like, params: { id: post1.id } }.to change(Like, :count).by(0)
+        expect { patch :like, format: :js, params: { id: post1.id } }.to change(Like, :count).by(0)
       end
     end
   end
@@ -83,50 +68,41 @@ RSpec.describe LikesController, type: :controller do
         sign_in other_user
       end
 
-      it "302レスポンスを返す" do
-        patch :unlike, params: { id: post1.id }
-        expect(response).to have_http_status 302
+      it "レスポンスが成功する" do
+        patch :unlike, format: :js, params: { id: post1.id }
+        expect(response).to be_successful
+      end
+
+      it "200レスポンスを返す" do
+        patch :unlike, format: :js, params: { id: post1.id }
+        expect(response).to have_http_status 200
+      end
+
+      it "JS形式でレスポンスを返す" do
+        patch :unlike, format: :js, params: { id: post1.id }
+        expect(response.content_type).to eq 'text/javascript'
       end
 
       it "いいねの取り消しに成功する" do
-        expect { patch :unlike, params: { id: post1.id } }.to change(Like, :count).by(-1)
+        expect { patch :unlike, format: :js, params: { id: post1.id } }.to change(Like, :count).by(-1)
       end
 
       it "非公開になった投稿はいいねの取り消しができない" do
-        expect { patch :unlike, params: { id: post2.id } }.to change(Like, :count).by(0)
-      end
-
-      context "いいねの取り消しをしたページがある場合" do
-        it "成功したら元のページにリダイレクトする" do
-          request.env['HTTP_REFERER'] = user_posts_url(user)
-          patch :unlike, params: { id: post1.id }
-          expect(response).to redirect_to(user_posts_url(user))
-        end
-      end
-
-      context "いいねをしたページがない場合" do
-        it "成功したらホーム画面にリダイレクトする" do
-          patch :unlike, params: { id: post1.id }
-          expect(response).to redirect_to(root_url)
-        end
+        expect { patch :unlike, format: :js, params: { id: post2.id } }.to change(Like, :count).by(0)
       end
     end
 
     context "ゲストユーザーの場合" do
       before do
-        patch :unlike, params: { id: post1.id }
+        patch :unlike, format: :js, params: { id: post1.id }
       end
 
       it "レスポンスが失敗する" do
         expect(response).not_to be_successful
       end
 
-      it "302レスポンスを返す" do
-        expect(response).to have_http_status 302
-      end
-
-      it "ログインページにリダイレクトする" do
-        expect(response).to redirect_to(new_user_session_path)
+      it "401レスポンスを返す" do
+        expect(response).to have_http_status 401
       end
 
       it "いいねの取り消しに失敗する" do

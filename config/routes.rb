@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:index]
     resources :purchases, only: [:index]
     resources :unpurchases, only: [:index]
+    get :following, :followers, on: :member
   end
 
   resources :posts do
@@ -21,7 +22,9 @@ Rails.application.routes.draw do
     patch "like", "unlike", on: :member, controller: :likes
     get "liked", on: :collection, controller: :likes
     get "liker", on: :member, controller: :likes
+    get "timeline", on: :collection
   end
   resources :purchases, only: [:index]
   resources :unpurchases, only: [:index]
+  resources :relationships, only: [:create, :destroy]
 end

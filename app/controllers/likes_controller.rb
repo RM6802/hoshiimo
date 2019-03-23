@@ -2,18 +2,24 @@ class LikesController < ApplicationController
   before_action :authenticate_user!, except: [:liker]
 
   def like
-    @post = Post.published.find_by(id: params[:id])
-    if @post
+    @post = Post.find(params[:id])
+    if @post.published == true
       current_user.liked_posts << @post
-      redirect_to request.referrer || root_url, notice: "いいねしました。"
+      respond_to do |format|
+        format.html { request.referrer || root_url }
+        format.js
+      end
     end
   end
 
   def unlike
-    post = Post.published.find_by(id: params[:id])
-    if post
-      current_user.liked_posts.destroy(post)
-      redirect_to request.referrer || root_url, notice: "いいねを取り消しました。"
+    @post = Post.find(params[:id])
+    if @post.published == true
+      current_user.liked_posts.destroy(@post)
+      respond_to do |format|
+        format.html { request.referrer || root_url }
+        format.js
+      end
     end
   end
 

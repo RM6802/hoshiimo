@@ -10,6 +10,9 @@
   <% else %>
     <h3>未購入一覧(公開用)</h3>
   <% end %>
+  <section class="stats">
+    <%= render 'shared/stats' %>
+  </section>
 
   <% if user_signed_in? %>
     <%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %>
@@ -27,6 +30,8 @@
     <div><%= link_to "投稿一覧へ", posts_path %></div>
     <div><%= link_to "購入済一覧へ", purchases_path %></div><br />
   <% end %>
+
+  <%= render 'shared/follow_form' if user_signed_in? %>
 
   <%= render 'shared/posts', posts: @unpurchases %>
 </div>

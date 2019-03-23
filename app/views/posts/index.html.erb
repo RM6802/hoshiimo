@@ -10,6 +10,12 @@
   <% else %>
     <h3>公開投稿一覧</h3>
   <% end %>
+  
+  <% if params[:user_id].present? %>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+  <% end %>
 
   <% if @posts.present? %>
     <p>
@@ -34,6 +40,8 @@
     <div><%= link_to "未購入一覧へ", unpurchases_path %></div>
     <div><%= link_to "購入済一覧へ", purchases_path %></div><br />
   <% end %>
+
+  <%= render 'shared/follow_form' if user_signed_in? %>
 
   <%= render 'shared/posts', posts: @posts %>
 </div>

@@ -3,5 +3,12 @@
 <div class="container-fluid">
   <h3><%= "#{current_user.name}さんのいいね一覧" %></h3>
 
+  <% if @posts.present? %>
+    <p>
+      <span class="green" style="color:#abd700;">緑:未購入</span><br>
+      <span class="red" style="color:#ffab6b;">赤:購入済</span>
+    </p>
+  <% end %>
+
   <%= render 'shared/posts', posts: @posts %>
 </div>

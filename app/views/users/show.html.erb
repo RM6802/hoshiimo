@@ -16,8 +16,12 @@
   <p class="lead">
     <%= @user.bio %>
   </p>
+  <section class="stats">
+    <%= render 'shared/stats' %>
+  </section>
+  <%= render 'shared/follow_form' if user_signed_in? %>
   <% if @user == current_user %>
-    <div><%= link_to "ユーザー情報編集", edit_user_registration_path, class: "btn btn-lg btn-primary" %></div><br />
+    <div><%= link_to "ユーザー情報編集へ", edit_user_registration_path %></div><br />
     <div><%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %></div>
   <% end %>
 </div>
