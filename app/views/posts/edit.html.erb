@@ -54,12 +54,12 @@
       </div>
     </div><br /><br />
 
-    <!-- <p>画像を投稿</p>
+    <p>画像を投稿</p>
     <div class="card">
       <div class="card-body">
-        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
       </div>
-    </div><br /><br /> -->
+    </div><br /><br />
 
     <div class="actions">
       <%= f.submit "更新", class: "btn btn-primary w-100", size: 50 %>
@@ -71,7 +71,6 @@
   var rb_purchased = $("#purchased");
   var rb_unpurchased = $("#unpurchased");
   var field = $("#purchased_at");
-
 
   console.log(field);
 
@@ -94,4 +93,13 @@
 
   changePurchasedAt();
   changeUnpurchasedAt();
+</script>
+
+<script type="text/javascript">
+  $('#post_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 5) {
+      alert('5MBより小さいファイルを選択してください');
+    }
+  });
 </script>

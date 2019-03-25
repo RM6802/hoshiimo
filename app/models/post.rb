@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many :likers, through: :likes, source: :user
+  mount_uploader :picture, PictureUploader
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, length: { maximum: 500 }
   validates :user_id, presence: true
@@ -9,6 +10,7 @@ class Post < ApplicationRecord
   validates :purchased, :published, inclusion: { in: [true, false] }
   validate :purchased_error
   validate :purchased_at_check
+  validate :picture_size
 
   # 公開ポスト
   scope :published, -> { where(published: true) }
@@ -50,6 +52,12 @@ class Post < ApplicationRecord
     d = date[3]
     unless Date.valid_date?(y, m, d)
       errors.add(:purchased_at, "の値が不正です")
+    end
+  end
+
+  def picture_size
+    if picture.size > 5.megabytes
+      errors.add(:picture, "は5MB未満にしてください")
     end
   end
 end

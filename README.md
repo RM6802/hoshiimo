@@ -17,6 +17,8 @@ https://hoshiimo-app.herokuapp.com/
 
 * フォロー機能
 
+* 画像投稿機能
+
 * rubocop
 
 * Rspec(controller spec, model spec, feature spec, helper spec)

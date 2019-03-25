@@ -41,6 +41,8 @@ gem 'rubocop-airbnb'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'carrierwave', '~> 1.0'
+gem "mini_magick"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -74,6 +76,7 @@ end
 
 group :production do
   gem 'pg'
+  gem 'fog'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

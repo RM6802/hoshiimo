@@ -30,6 +30,7 @@ RSpec.feature "Posts", type: :feature do
     fill_in "商品名 (必須)", with: "テスト商品"
     fill_in "商品説明", with: "hogehoge"
     fill_in "値段", with: 1000
+    attach_file "post[picture]", "#{Rails.root}/spec/files/attachment.jpg"
     choose "purchased"
     select 2019, from: 'post_purchased_at_1i'
     select 1, from: 'post_purchased_at_2i'
@@ -38,6 +39,18 @@ RSpec.feature "Posts", type: :feature do
     expect { click_on "投稿" }.to change(Post, :count).by(1)
     expect(page).to have_current_path(user_posts_path(current_user.id))
     expect(page).to have_content "投稿を作成しました。"
+  end
+
+  scenario "投稿を更新する" do
+    visit user_posts_path(current_user.id)
+    click_on "#{current_user_post.name}"
+    expect(page).to have_current_path(post_path(current_user_post.id))
+    click_on "編集"
+    expect(page).to have_current_path(edit_post_path(current_user_post.id))
+    attach_file "post[picture]", "#{Rails.root}/spec/files/attachment.jpg"
+    expect { click_on "更新" }.to change(Post, :count).by(0)
+    expect(page).to have_current_path(user_posts_path(current_user.id))
+    expect(page).to have_content "投稿内容を更新しました。"
   end
 
   context "全ユーザーの公開投稿一覧" do

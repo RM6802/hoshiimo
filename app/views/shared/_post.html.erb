@@ -30,3 +30,6 @@
 <span id="like-<%= post.id %>" class="like">
   <%= render 'likes/like', post: post %>
 </span>
+<span class="picture">
+  <%= image_tag post.picture.url if post.picture? %>
+</span>
