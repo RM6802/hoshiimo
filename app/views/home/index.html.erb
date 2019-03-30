@@ -1,24 +1,22 @@
 <% if user_signed_in? %>
+  <div class="container-fluid">
+    <h3><%= "#{current_user.name}さんの投稿一覧" %></h3>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+    <% if @posts.present? %>
+      <p>
+        <span class="green" style="color:#abd700;">緑:未購入</span><br>
+        <span class="red" style="color:#ffab6b;">赤:購入済</span>
+      </p>
+    <% end %>
 
-<div class="container-fluid">
-  <h3><%= "#{current_user.name}さんの投稿一覧" %></h3>
-  <section class="stats">
-    <%= render 'shared/stats' %>
-  </section>
-  <% if @posts.present? %>
-    <p>
-      <span class="green" style="color:#abd700;">緑:未購入</span><br>
-      <span class="red" style="color:#ffab6b;">赤:購入済</span>
-    </p>
-  <% end %>
+    <div><%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %></div>
+    <div><%= link_to "#{current_user.name}さんの未購入一覧へ", user_unpurchases_path(current_user) %></div>
+    <div><%= link_to "#{current_user.name}さんの購入済一覧へ", user_purchases_path(current_user) %></div><br />
 
-  <div><%= link_to "新規投稿を作成", new_post_path, class: "btn btn-lg btn-primary" %></div>
-  <div><%= link_to "#{current_user.name}さんの未購入一覧へ", user_unpurchases_path(current_user) %></div>
-  <div><%= link_to "#{current_user.name}さんの購入済一覧へ", user_purchases_path(current_user) %></div><br />
-
-  <%= render 'shared/posts', posts: @posts %>
-</div>
-
+    <%= render 'shared/posts', posts: @posts %>
+  </div>
 <% else %>
   <div class="container-fluid">
     <div class="text-content">

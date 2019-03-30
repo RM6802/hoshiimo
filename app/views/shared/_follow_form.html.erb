@@ -1,10 +1,12 @@
-<% @user ||= current_user %>
-<% if current_user != @user %>
-  <div id="follow_form">
-  <% if current_user.following?(@user) %>
-    <%= render 'shared/unfollow' %>
-  <% else %>
-    <%= render 'shared/follow' %>
+<% if user_signed_in? %>
+  <% @user ||= current_user %>
+  <% if current_user != @user %>
+    <div id="follow_form">
+    <% if current_user.following?(@user) %>
+      <%= render 'shared/unfollow' %>
+    <% else %>
+      <%= render 'shared/follow' %>
+    <% end %>
+    </div>
   <% end %>
-  </div>
 <% end %>
